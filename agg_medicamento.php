@@ -64,7 +64,7 @@ require('includes/templates/master_header.php');
                         </select>
                     </div>
                     <div class="col-sm-6">
-                        <input type="date" class="form-control form-control-user" id="fechaMed" value="2019-02-02">
+                        <input type="date" class="form-control form-control-user" id="fechaMed">
                     </div>
                 </div>
                 <div class="form-group row">
