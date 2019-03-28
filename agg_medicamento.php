@@ -1,3 +1,10 @@
+<?php
+require('includes/functions/funciones.php');
+session_start();
+admin_autenticado();
+
+?>
+
 <?php 
 require('includes/templates/master_header.php');
 ?>
@@ -14,7 +21,19 @@ require('includes/templates/master_header.php');
                     </div>
                     <div class="col-sm-5">
                         <select class="form-control">
-                            <option>Presentación</option>
+                            <option>Presentación</option> 
+
+                            <?php
+                            require_once("includes/functions/bd_conexion.php");
+
+                            $sql="SELECT pre_id,pre_nombre from presentacion";
+                            $result = $conn->query($sql);
+
+                            while ($valores = mysqli_fetch_array($result)) {
+                        
+                                echo '<option value="'.$valores[pre_id].'">'.$valores[pre_nombre].'</option>';
+                              }
+                        ?>       
                         </select>
                     </div>
                 </div>
