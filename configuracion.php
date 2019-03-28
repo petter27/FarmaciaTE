@@ -247,7 +247,7 @@ try{
                                 onclick="agregaformP('<?php echo $presentacion['pre_nombre'] ?>',<?php echo $presentacion['pre_id'] ?>)">
                                     <i class="fas fa-pencil-alt"></i>
                                 </button>
-                                <a href="#" class="btn btn-danger btn-circle btn-sm">
+                                <a href="includes/functions/borrar_pre.php?id=<?php echo $presentacion['pre_id']; ?>" class="btn btn-danger btn-circle btn-sm">
                                     <i class="fas fa-trash-alt"></i>
                                 </a>
                             </td>
