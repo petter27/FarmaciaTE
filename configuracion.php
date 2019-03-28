@@ -26,7 +26,7 @@ if(isset($_GET['msgp'])){
     $mensajeP=$_GET['msgp'];
 };
 ?>
-?>
+
 
 <?php
 try{
