@@ -5,6 +5,13 @@ admin_autenticado();
 
 ?>
 
+<?php
+$mensajeU='';
+if(isset($_GET['mensaje'])){
+    $mensajeU=$_GET['mensaje'];
+};
+?>
+
 <?php 
 require('includes/templates/master_header.php');
 ?>
@@ -14,13 +21,13 @@ require('includes/templates/master_header.php');
     <h1 class="h4 text-gray-900 mb-4">Nuevo Medicamento</h1>
     <div class="card mb-4 py-3 border-left-info">
         <div class="card-body">
-            <form>
+            <form action="crear_medicamento.php" method="POST">
                 <div class="form-group row">
                     <div class="col-sm-7 mb-3 mb-sm-0">
-                        <input type="text" class="form-control form-control-user" id="" placeholder="Nombre medicamento">
+                        <input type="text" class="form-control form-control-user" id="txtMedicamento" placeholder="Nombre medicamento">
                     </div>
                     <div class="col-sm-5">
-                        <select class="form-control">
+                        <select class="form-control" id="comboP">
                             <option>Presentación</option> 
 
                             <?php
@@ -39,7 +46,7 @@ require('includes/templates/master_header.php');
                 </div>
                 <div class="form-group row">
                     <div class="col-sm-6">
-                        <select class="form-control">
+                        <select class="form-control" id="comboC">
                             <option>Categoría</option>
 
                             <?php
@@ -57,15 +64,20 @@ require('includes/templates/master_header.php');
                         </select>
                     </div>
                     <div class="col-sm-6">
-                        <input type="date" class="form-control form-control-user" id="">
+                        <input type="date" class="form-control form-control-user" id="fechaMed" value="2019-02-02">
                     </div>
                 </div>
                 <div class="form-group row">
                     <div class="col-sm-6">
-                        <input type="text" class="form-control form-control-user" id="" placeholder="Precio Compra">
+                        <input type="text" class="form-control form-control-user" id="txtPrecioCompra" placeholder="Precio Compra">
                     </div>
                     <div class="col-sm-6">
-                        <input type="text" class="form-control form-control-user" id="" placeholder="Precio Venta">
+                        <input type="text" class="form-control form-control-user" id="txtPrecioVenta" placeholder="Precio Venta">
+                    </div>
+                </div>
+                <div class="form-group row">
+                <div class="col-sm-6">
+                        <input type="text" class="form-control form-control-user" id="txtStock" placeholder="Stock">
                     </div>
                 </div>
                 <div class="form-group row">
@@ -83,10 +95,13 @@ require('includes/templates/master_header.php');
                         <span class="icon text-white-50">
                             <i class="fas fa-plus"></i>
                         </span>
-                        <span class="text">Agregar medicamento</span>
-                    </a>
+                        <span class="text"  name="btnAgregarMed">Agregar medicamento</span>
+                        
+                        </a>
                 </div>
+                
                 <hr>
+                <?php echo $mensajeU; ?>
             </form>
         </div>
     </div>
