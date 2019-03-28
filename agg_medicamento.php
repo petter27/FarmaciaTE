@@ -41,6 +41,19 @@ require('includes/templates/master_header.php');
                     <div class="col-sm-6">
                         <select class="form-control">
                             <option>Categoría</option>
+
+                            <?php
+                            require_once("includes/functions/bd_conexion.php");
+
+                            $sql="SELECT cat_id,cat_nombre from categoria_medicamento where cat_estado=1";
+                            $result = $conn->query($sql);
+
+                            while ($valores = mysqli_fetch_array($result)) {
+                        
+                                echo '<option value="'.$valores[cat_id].'">'.$valores[cat_nombre].'</option>';
+                              }
+                        ?>    
+
                         </select>
                     </div>
                     <div class="col-sm-6">
@@ -52,7 +65,7 @@ require('includes/templates/master_header.php');
                         <input type="text" class="form-control form-control-user" id="" placeholder="Precio Compra">
                     </div>
                     <div class="col-sm-6">
-                        <input type="text" class="form-control form-control-user" id="" placeholder="Precio Venra">
+                        <input type="text" class="form-control form-control-user" id="" placeholder="Precio Venta">
                     </div>
                 </div>
                 <div class="form-group row">
