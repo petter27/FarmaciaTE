@@ -243,9 +243,10 @@ try{
                     <?php while ($presentacion=$pre_result->fetch_assoc()){  ?>
                         <tr role="row" class="odd">
                             <td align="center">
-                                <a href="#" class="btn btn-success btn-circle btn-sm">
+                                <button class="btn btn-success btn-circle btn-sm" data-toggle="modal" data-target="#modalEdicionP"
+                                onclick="agregaformP('<?php echo $presentacion['pre_nombre'] ?>',<?php echo $presentacion['pre_id'] ?>)">
                                     <i class="fas fa-pencil-alt"></i>
-                                </a>
+                                </button>
                                 <a href="#" class="btn btn-danger btn-circle btn-sm">
                                     <i class="fas fa-trash-alt"></i>
                                 </a>
@@ -265,4 +266,34 @@ try{
 require('includes/templates/master_footer.php');
 ?>
 
+
+
+<div class="modal fade" id="modalEdicionP" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+              <div class="modal-dialog modal-sm" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Actualizar datos</h4>
+                </div>
+                <div class="modal-body">
+                    <input type="text" hidden="" id="id_pre" name="">
+                    <label>Presentación</label>
+                    <input type="text" name="" id="nombreP" class="form-control input-sm">
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-warning" id="EditPresentacion" data-dismiss="modal">Actualizar</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+<script src="js/funciones.js"></script>
+<script>
+$('#EditPresentacion').click(function(){
+          actualizaPre();
+        });
+        </script>
 </html> 
+
