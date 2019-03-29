@@ -21,13 +21,13 @@ require('includes/templates/master_header.php');
     <h1 class="h4 text-gray-900 mb-4">Nuevo Medicamento</h1>
     <div class="card mb-4 py-3 border-left-info">
         <div class="card-body">
-            <form action="crear_medicamento.php" method="POST">
+            <form action="includes/functions/crear_medicamento.php" method="POST" enctype="multipart/form-data">
                 <div class="form-group row">
                     <div class="col-sm-7 mb-3 mb-sm-0">
-                        <input type="text" class="form-control form-control-user" id="txtMedicamento" placeholder="Nombre medicamento">
+                        <input type="text" class="form-control form-control-user" name="txtMedicamento" placeholder="Nombre medicamento">
                     </div>
                     <div class="col-sm-5">
-                        <select class="form-control" id="comboP">
+                        <select class="form-control" name="comboP">
                             <option>Presentación</option> 
 
                             <?php
@@ -46,7 +46,7 @@ require('includes/templates/master_header.php');
                 </div>
                 <div class="form-group row">
                     <div class="col-sm-6">
-                        <select class="form-control" id="comboC">
+                        <select class="form-control" name="comboC">
                             <option>Categoría</option>
 
                             <?php
@@ -64,20 +64,20 @@ require('includes/templates/master_header.php');
                         </select>
                     </div>
                     <div class="col-sm-6">
-                        <input type="date" class="form-control form-control-user" id="fechaMed">
+                        <input type="date" class="form-control form-control-user" name="fechaMed">
                     </div>
                 </div>
                 <div class="form-group row">
                     <div class="col-sm-6">
-                        <input type="text" class="form-control form-control-user" id="txtPrecioCompra" placeholder="Precio Compra">
+                        <input type="text" class="form-control form-control-user" name="txtPrecioCompra" placeholder="Precio Compra">
                     </div>
                     <div class="col-sm-6">
-                        <input type="text" class="form-control form-control-user" id="txtPrecioVenta" placeholder="Precio Venta">
+                        <input type="text" class="form-control form-control-user" name="txtPrecioVenta" placeholder="Precio Venta">
                     </div>
                 </div>
                 <div class="form-group row">
                 <div class="col-sm-6">
-                        <input type="text" class="form-control form-control-user" id="txtStock" placeholder="Stock">
+                        <input type="text" class="form-control form-control-user"  name="txtStock" placeholder="Stock">
                     </div>
                 </div>
                 <div class="form-group row">
@@ -95,7 +95,8 @@ require('includes/templates/master_header.php');
                         <span class="icon text-white-50">
                             <i class="fas fa-plus"></i>
                         </span>
-                        <span class="text"  name="btnAgregarMed">Agregar medicamento</span>
+                        <button type="submit"  name="btnAgregarMed">Agregar medicamento</button>
+
                         
                         </a>
                 </div>
