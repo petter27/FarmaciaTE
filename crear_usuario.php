@@ -38,7 +38,6 @@
                 $mensaje= "Error: " . $e->getMessage();
             }
         }
-
-        
-        Header("Location: configuracion.php?mensaje=$mensaje"); 
+    }
+        Header("Location:configuracion.php?mensaje=$mensaje"); 
         ?>
