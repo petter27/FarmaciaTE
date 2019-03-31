@@ -1,3 +1,24 @@
+<?php
+require('includes/functions/funciones.php');
+session_start();
+admin_autenticado();
+
+?>
+
+<!-- Listar Inventario -->
+<?php
+try{
+    require_once("includes/functions/bd_conexion.php");
+    $sqlMed="SELECT m.med_img, m.med_nombre, m.med_stock, c. cat_nombre, p.pre_nombre, m.med_precioC, m.med_precioV, m.med_fechaV 
+    FROM medicamentos m INNER JOIN categoria_medicamento c ON m.cat_id= c.cat_id INNER JOIN presentacion p ON m.pre_id=p.pre_id where m.med_estado=1;";
+    $resultado=$conn->query($sqlMed);
+
+
+}catch (Exception $e){
+    $error=$e.getMessage();
+}
+?>
+
 <?php 
 require('includes/templates/master_header.php');
 ?>
@@ -45,6 +66,8 @@ require('includes/templates/master_header.php');
                 </tfoot>
                 <tbody>
                     <tr>
+                    <?php while ($medicamentos=$resultado->fetch_assoc()){  ?>
+                    <tr>
                         <td>
                             <a href="#" class="btn btn-success btn-circle btn-sm">
                                 <i class="fas fa-pencil-alt"></i>
@@ -53,14 +76,16 @@ require('includes/templates/master_header.php');
                                 <i class="fas fa-trash"></i>
                             </a>
                         </td>
-                        <td>Imagen</td>
-                        <td>Medicamento</td>
-                        <td>Stock</td>
-                        <td>Categoría</td>
-                        <td>Presentación</td>
-                        <td>P Compra</td>
-                        <td>P Venta</td>
-                        <td>Expira</td>
+                        <td><?php echo'<img src="'.$medicamentos["med_img"].'" width="100px" height="100px"/>'?></td>
+                        <td><?php echo $medicamentos["med_nombre"] ?></td>
+                        <td><?php echo $medicamentos["med_stock"] ?></td>
+                        <td><?php echo $medicamentos["cat_nombre"] ?></td>
+                        <td><?php echo $medicamentos["pre_nombre"] ?></td>
+                        <td>$<?php echo $medicamentos["med_precioC"] ?></td>
+                        <td>$<?php echo $medicamentos["med_precioV"] ?></td>
+                        <td><?php echo $medicamentos["med_fechaV"] ?></td>
+                    </tr>
+                    <?php  }  ?>
                     </tr>
                     <tr>
                         <td>
