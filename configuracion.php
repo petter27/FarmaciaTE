@@ -320,6 +320,7 @@ $('#EditPresentacion').click(function(){
 
 $('#EditCategoria').click(function(){
     actualizaCat();
+
 });
 
         </script>

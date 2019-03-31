@@ -25,10 +25,7 @@ function actualizaPre(){
 		url:"includes/functions/actualizar_presentacion.php",
 		data:cadena,
 		success:function(r){
-			alert(cadena);
- window.location.reload(); 
-
-
+ 		window.location.reload(); 
 			}
 		
 	});
@@ -49,8 +46,7 @@ function actualizaCat(){
 		url:"includes/functions/actualizar_categoria.php",
 		data:cadena,
 		success:function(r){
-			alert(cadena);
- window.location.reload(); 
+ 		window.location.reload(); 
 
 
 			}
