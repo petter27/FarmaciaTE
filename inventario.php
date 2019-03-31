@@ -9,7 +9,7 @@ admin_autenticado();
 <?php
 try{
     require_once("includes/functions/bd_conexion.php");
-    $sqlMed="SELECT m.med_img, m.med_nombre, m.med_stock, c. cat_nombre, p.pre_nombre, m.med_precioC, m.med_precioV, m.med_fechaV 
+    $sqlMed="SELECT m.med_id, m.med_img, m.med_nombre, m.med_stock, c. cat_nombre, p.pre_nombre, m.med_precioC, m.med_precioV, m.med_fechaV 
     FROM medicamentos m INNER JOIN categoria_medicamento c ON m.cat_id= c.cat_id INNER JOIN presentacion p ON m.pre_id=p.pre_id where m.med_estado=1;";
     $resultado=$conn->query($sqlMed);
 
@@ -72,7 +72,7 @@ require('includes/templates/master_header.php');
                             <a href="#" class="btn btn-success btn-circle btn-sm">
                                 <i class="fas fa-pencil-alt"></i>
                             </a>
-                            <a href="#" class="btn btn-danger btn-circle btn-sm">
+                            <a href="includes/functions/desactivar_medicamento.php?id=<?php echo $medicamentos['med_id']; ?>" class="btn btn-danger btn-circle btn-sm">
                                 <i class="fas fa-trash"></i>
                             </a>
                         </td>
