@@ -31,7 +31,7 @@ if(isset($_GET['msgp'])){
 <?php
 try{
     require_once("includes/functions/bd_conexion.php");
-    $sqlUsuarios="SELECT case when usr_tipo=1 then 'Administrador' else 'usuario' end tipo, usr_nombre, usr_email 
+    $sqlUsuarios="SELECT usr_id, case when usr_tipo=1 then 'Administrador' else 'usuario' end tipo, usr_nombre, usr_email 
     FROM usuario where usr_estado=1;";
     $resultado=$conn->query($sqlUsuarios);
 
@@ -115,7 +115,7 @@ try{
                                 <a href="#" class="btn btn-success btn-circle btn-sm">
                                     <i class="fas fa-pencil-alt"></i>
                                 </a>
-                                <a href="#" class="btn btn-danger btn-circle btn-sm">
+                                <a href="includes/functions/desactivar_usuario.php?id=<?php echo $usuarios['usr_id']; ?>" class="btn btn-danger btn-circle btn-sm">
                                     <i class="fas fa-trash-alt"></i>
                                 </a>
                             </td>
