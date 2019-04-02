@@ -121,7 +121,7 @@ try {
                                 <a href="#" class="btn btn-success btn-circle btn-sm">
                                     <i class="fas fa-pencil-alt"></i>
                                 </a>
-                                <a href="includes/functions/desactivar_usuario.php?delete_user=<?php echo $usuarios['usr_id']; ?>" class="btn btn-danger btn-circle btn-sm">
+                                <a href="includes/functions/CRUD_usuario.php?delete_user=<?php echo $usuarios['usr_id']; ?>" class="btn btn-danger btn-circle btn-sm">
                                     <i class="fas fa-trash-alt"></i>
                                 </a>
                             </td>
