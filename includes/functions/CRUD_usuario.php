@@ -51,7 +51,18 @@ if (isset($_POST['agg_user']) && isset($_FILES['user_img'])) {
 
 if (isset($_POST['edit_user'])) { }
 
-if (isset($_POST['delete_user'])) { }
+if (isset($_GET['delete_user'])) {
+  $id = $_GET["delete_user"];
+  try {
+    require_once("bd_conexion.php");
+    $sql = "UPDATE usuario set usr_estado=0 WHERE usr_id ={$id}";
+    $resultado = $conn->query($sql);
+  } catch (Exception $e) {
+    $error = $e . getMessage();
+  }
+
+  Header("Location:../../configuracion.php");
+}
 
 
 function validarIMG()

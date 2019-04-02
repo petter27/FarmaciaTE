@@ -121,7 +121,7 @@ try {
                                 <a href="#" class="btn btn-success btn-circle btn-sm">
                                     <i class="fas fa-pencil-alt"></i>
                                 </a>
-                                <a href="includes/functions/desactivar_usuario.php?id=<?php echo $usuarios['usr_id']; ?>" class="btn btn-danger btn-circle btn-sm">
+                                <a href="includes/functions/desactivar_usuario.php?delete_user=<?php echo $usuarios['usr_id']; ?>" class="btn btn-danger btn-circle btn-sm">
                                     <i class="fas fa-trash-alt"></i>
                                 </a>
                             </td>
@@ -319,7 +319,11 @@ require('includes/templates/master_footer.php');
     </div>
 </div>
 <!-- fin modal presentaciones -->
+
+
+
 <script src="js/funciones.js"></script>
+
 <script>
     $('#EditPresentacion').click(function() {
         actualizaPre();
@@ -327,9 +331,9 @@ require('includes/templates/master_footer.php');
 
     $('#EditCategoria').click(function() {
         actualizaCat();
-
     });
 </script>
+
 <script type="text/javascript">
     function PreviewImage(_img) {
 
