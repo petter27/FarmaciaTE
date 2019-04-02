@@ -44,26 +44,7 @@ require('includes/templates/master_header.php');
                         <th>Expira</th>
                     </tr>
                 </thead>
-                <tfoot>
-                    <tr>
-                        <td>
-                            <a href="#" class="btn btn-success btn-circle btn-sm">
-                                <i class="fas fa-pencil-alt"></i>
-                            </a>
-                            <a href="#" class="btn btn-danger btn-circle btn-sm">
-                                <i class="fas fa-trash"></i>
-                            </a>
-                        </td>
-                        <td>Imagen</td>
-                        <td>Medicamento</td>
-                        <td>Stock</td>
-                        <td>Categoría</td>
-                        <td>Presentación</td>
-                        <td>P Compra</td>
-                        <td>P Venta</td>
-                        <td>Expira</td>
-                    </tr>
-                </tfoot>
+         
                 <tbody>
                     <tr>
                     <?php while ($medicamentos=$resultado->fetch_assoc()){  ?>
@@ -77,7 +58,7 @@ require('includes/templates/master_header.php');
                                 <i class="fas fa-trash"></i>
                             </a>
                         </td>
-                        <td><?php echo'<img src="'.$medicamentos["med_img"].'" width="100px" height="100px"/>'?></td>
+                        <td><?php echo'<img src="img/'.$medicamentos["med_img"].'" width="100px" height="100px"/>'?></td>
                         <td><?php echo $medicamentos["med_nombre"] ?></td>
                         <td><?php echo $medicamentos["med_stock"] ?></td>
                         <td><?php echo $medicamentos["cat_nombre"] ?></td>
@@ -87,61 +68,7 @@ require('includes/templates/master_header.php');
                         <td><?php echo $medicamentos["med_fechaV"] ?></td>
                     </tr>
                     <?php  }  ?>
-                    </tr>
-                    <tr>
-                        <td>
-                            <a href="#" class="btn btn-success btn-circle btn-sm">
-                                <i class="fas fa-pencil-alt"></i>
-                            </a>
-                            <a href="#" class="btn btn-danger btn-circle btn-sm">
-                                <i class="fas fa-trash"></i>
-                            </a>
-                        </td>
-                        <td>Imagen</td>
-                        <td>Medicamento</td>
-                        <td>Stock</td>
-                        <td>Categoría</td>
-                        <td>Presentación</td>
-                        <td>P Compra</td>
-                        <td>P Venta</td>
-                        <td>Expira</td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <a href="#" class="btn btn-success btn-circle btn-sm">
-                                <i class="fas fa-pencil-alt"></i>
-                            </a>
-                            <a href="#" class="btn btn-danger btn-circle btn-sm">
-                                <i class="fas fa-trash"></i>
-                            </a>
-                        </td>
-                        <td>Imagen</td>
-                        <td>Medicamento</td>
-                        <td>Stock</td>
-                        <td>Categoría</td>
-                        <td>Presentación</td>
-                        <td>P Compra</td>
-                        <td>P Venta</td>
-                        <td>Expira</td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <a href="#" class="btn btn-success btn-circle btn-sm">
-                                <i class="fas fa-pencil-alt"></i>
-                            </a>
-                            <a href="#" class="btn btn-danger btn-circle btn-sm">
-                                <i class="fas fa-trash"></i>
-                            </a>
-                        </td>
-                        <td>Imagen</td>
-                        <td>Medicamento</td>
-                        <td>Stock</td>
-                        <td>Categoría</td>
-                        <td>Presentación</td>
-                        <td>P Compra</td>
-                        <td>P Venta</td>
-                        <td>Expira</td>
-                    </tr>
+           
                 </tbody>
             </table>
         </div>
@@ -150,7 +77,7 @@ require('includes/templates/master_header.php');
 
 <!-- modal medicamentos -->
 <div class="modal fade" id="modalEdicionM" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-              <div class="modal-dialog modal-sm" role="document">
+              <div class="modal-dialog modal-md" role="document">
                 <div class="modal-content">
                   <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>

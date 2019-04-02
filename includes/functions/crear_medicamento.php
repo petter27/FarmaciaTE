@@ -10,6 +10,7 @@ if (isset($_POST["btnAgregarMed"])){
     $stock=$_POST["txtStock"];
     $estado=1;
     $imagen=$_FILES["file"]["tmp_name"];
+    $url_img=$_FILES["file"]["name"];
     $targetPath="../../img/".$_FILES["file"]["name"];
     
 
@@ -23,7 +24,7 @@ if (isset($_POST["btnAgregarMed"])){
         require_once("bd_conexion.php");
         $stmt=$conn->prepare("INSERT INTO medicamentos (med_nombre,med_stock,med_precioC,med_precioV,cat_id, pre_id, med_fechaV, med_estado,med_img)
          values (?,?,?,?,?,?,?,?,?)");
-        $stmt->bind_param("sissiisis", $nombre,$stock,$precio_compra,$precio_venta,$categoria,$presentacion,$fechaV,$estado,$imagen);
+        $stmt->bind_param("sissiisis", $nombre,$stock,$precio_compra,$precio_venta,$categoria,$presentacion,$fechaV,$estado,$url_img);
         $stmt->execute();
 
         move_uploaded_file($imagen,$targetPath);
