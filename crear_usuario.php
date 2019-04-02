@@ -36,13 +36,6 @@ if (isset($_POST["btnAgregar"])) {
             $mensaje = "Error: " . $e->getMessage();
         }
     }
-<<<<<<< HEAD
+    Header("Location:configuracion.php?mensaje=$mensaje");
 }
-
-
-Header("Location: configuracion.php?mensaje=$mensaje");
  
-=======
-        Header("Location:configuracion.php?mensaje=$mensaje"); 
-        ?>
->>>>>>> d12c4b37291e03106ee22f419ffd52d851788d99

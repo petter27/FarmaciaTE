@@ -53,26 +53,26 @@ try {
             <div class="card-body card-block">
 
                 <div class="login-form">
-                    <form action="crear_usuario.php" method="POST">
+                    <form action="./includes/functions/CRUD_usuario.php" method="POST" enctype="multipart/form-data">
                         <div class="form-group">
                             <label>Nombre de usuario</label>
-                            <input name="user" type="text" class="form-control" placeholder="Usuario">
+                            <input name="user_name" type="text" class="form-control" placeholder="Usuario">
                         </div>
                         <div class="form-group">
                             <label>Correo Electrónico</label>
-                            <input name="email" type="email" class="form-control" placeholder="Correo Electronico">
+                            <input name="user_email" type="email" class="form-control" placeholder="Correo Electronico">
                         </div>
                         <div class="form-group">
                             <label>Contrasena</label>
-                            <input name="pass1" type="password" class="form-control" placeholder="Contrasena">
+                            <input name="user_pass" type="password" class="form-control" placeholder="Contrasena">
                         </div>
                         <div class="form-group">
                             <label>Contrasena</label>
-                            <input name="pass2" type="password" class="form-control" placeholder="Repita la Contrasena">
+                            <input name="user_pass2" type="password" class="form-control" placeholder="Repita la Contrasena">
                         </div>
                         <div class="form-group">
                             <label for="categoria" class=" form-control-label">Tipo de usuario</label>
-                            <select name="ddlTipo" id="ddlTipo" class="form-control">
+                            <select name="user_idtipo" id="ddlTipo" class="form-control">
                                 <option value="1">Admin</option>
                                 <option value="2" selected="true">Empleado</option>
                             </select>
@@ -80,14 +80,14 @@ try {
                         <div class="form-group row">
                             <div class="col-md-6">
                                 <label class=" form-control-label">Una imagen .png, .jpg, jpeg no mayor a 10mb</label>
-                                <input id="subirImg" onchange="PreviewImage(this);" class="form-control" type="file" name="file">
+                                <input id="subirImg" onchange="PreviewImage(this);" class="form-control" type="file" name="user_img">
                             </div>
                             <div class="col-md-6">
                                 <img id="imagen" width="100" src="" alt="">
                             </div>
                         </div>
                         <div class="col-lg-6 offset-md-3 mr-auto ml-auto">
-                            <button type="submit" name="btnAgregar" class="btn btn-info btn-block">Agregar usuario
+                            <button type="submit" name="agg_user" class="btn btn-info btn-block">Agregar usuario
                             </button>
                         </div>
                         <?php echo $mensajeU; ?>
@@ -329,6 +329,24 @@ require('includes/templates/master_footer.php');
         actualizaCat();
 
     });
+</script>
+<script type="text/javascript">
+    function PreviewImage(_img) {
+
+        var uploadFile = _img.files[0];
+
+        if (!(/\.(jpg|png|jpeg)$/i).test(uploadFile.name)) {
+            alert('El archivo a adjuntar no es una imagen');
+
+        } else {
+            var oFReader = new FileReader();
+            oFReader.readAsDataURL(document.getElementById("subirImg").files[0]);
+
+            oFReader.onload = function(oFREvent) {
+                document.getElementById("imagen").src = oFREvent.target.result;
+            };
+        };
+    }
 </script>
 
 </html> 
