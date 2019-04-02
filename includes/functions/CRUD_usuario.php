@@ -1,4 +1,9 @@
-<?php 
+<?php
+require('./funciones.php');
+
+session_start();
+admin_autenticado();
+
 require_once("bd_conexion.php");
 
 #user image

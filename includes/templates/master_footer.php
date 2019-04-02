@@ -32,7 +32,9 @@
             <div class="modal-body">Seleccione "Logout" si desea cerrar sesión.</div>
             <div class="modal-footer">
                 <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                <a class="btn btn-primary" href="login.php">Logout</a>
+                <form action="includes/functions/log_out.php" method="POST">
+                    <button class="btn btn-danger" type="submit" name="logout">Cerrar Sesión</button>
+                </form>
             </div>
         </div>
     </div>
