@@ -31,7 +31,7 @@ if(isset($_GET['msgp'])){
 <?php
 try{
     require_once("includes/functions/bd_conexion.php");
-    $sqlUsuarios="SELECT case when usr_tipo=1 then 'Administrador' else 'usuario' end tipo, usr_nombre, usr_email 
+    $sqlUsuarios="SELECT usr_id, case when usr_tipo=1 then 'Administrador' else 'usuario' end tipo, usr_nombre, usr_email 
     FROM usuario where usr_estado=1;";
     $resultado=$conn->query($sqlUsuarios);
 
@@ -115,7 +115,7 @@ try{
                                 <a href="#" class="btn btn-success btn-circle btn-sm">
                                     <i class="fas fa-pencil-alt"></i>
                                 </a>
-                                <a href="#" class="btn btn-danger btn-circle btn-sm">
+                                <a href="includes/functions/desactivar_usuario.php?id=<?php echo $usuarios['usr_id']; ?>" class="btn btn-danger btn-circle btn-sm">
                                     <i class="fas fa-trash-alt"></i>
                                 </a>
                             </td>
@@ -178,10 +178,11 @@ try{
                     <?php while ($categorias=$cat_result->fetch_assoc()){  ?>
                         <tr role="row" class="odd">
                             <td align="center">
-                                <a href="#" class="btn btn-success btn-circle btn-sm">
+                            <button class="btn btn-success btn-circle btn-sm" data-toggle="modal" data-target="#modalEdicionC"
+                                onclick="agregaformC('<?php echo $categorias['cat_nombre'] ?>',<?php echo $categorias['cat_id'] ?>)">
                                     <i class="fas fa-pencil-alt"></i>
-                                </a>
-                                <a href="#" class="btn btn-danger btn-circle btn-sm">
+                                </button>
+                                <a href="includes/functions/borrar_categoria.php?id=<?php echo $categorias['cat_id']; ?>" class="btn btn-danger btn-circle btn-sm">
                                     <i class="fas fa-trash-alt"></i>
                                 </a>
                             </td>
@@ -266,8 +267,30 @@ try{
 require('includes/templates/master_footer.php');
 ?>
 
+<!-- modal categorias -->
+<div class="modal fade" id="modalEdicionC" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+              <div class="modal-dialog modal-sm" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Actualizar datos</h4>
+                </div>
+                <div class="modal-body">
+                    <input type="text" hidden="" id="cat_id" name="">
+                    <label>Categoria</label>
+                    <input type="text" name="" id="cat_nombre" class="form-control input-sm">
 
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-warning" id="EditCategoria" data-dismiss="modal">Actualizar</button>
 
+                </div>
+            </div>
+        </div>
+    </div>
+<!-- fin modal categorias -->
+
+<!-- modal presentaciones -->
 <div class="modal fade" id="modalEdicionP" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
               <div class="modal-dialog modal-sm" role="document">
                 <div class="modal-content">
@@ -288,12 +311,18 @@ require('includes/templates/master_footer.php');
             </div>
         </div>
     </div>
-
+<!-- fin modal presentaciones -->
 <script src="js/funciones.js"></script>
 <script>
 $('#EditPresentacion').click(function(){
           actualizaPre();
         });
+
+$('#EditCategoria').click(function(){
+    actualizaCat();
+
+});
+
         </script>
 </html> 
 
