@@ -1,6 +1,6 @@
 <?php 
 session_start();
-require_once('../functions.php');
+require_once('includes/functions/funciones.php');
 emp_autenticado();
 ?>
 

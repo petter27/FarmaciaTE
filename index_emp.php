@@ -1,7 +1,7 @@
 <?php
 require('includes/functions/funciones.php');
-session_start();
-admin_autenticado();
+//session_start();
+//emp_autenticado();
 ?>
 
 <?php 

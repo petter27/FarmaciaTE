@@ -1,5 +1,5 @@
 <?php
- #session_start();
+ session_start();
 $resultado = "";
 if (isset($_POST["login"])) {
   $usuario = $_POST["usuario"];
