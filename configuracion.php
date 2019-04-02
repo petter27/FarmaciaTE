@@ -118,7 +118,7 @@ try {
                         <?php while ($usuarios = $resultado->fetch_assoc()) {  ?>
                         <tr>
                             <td align="center">
-                                <a href="#" class="btn btn-success btn-circle btn-sm">
+                                <a href="editar_usuario.php?id=<?php echo $usuarios['usr_id']; ?>" class="btn btn-success btn-circle btn-sm">
                                     <i class="fas fa-pencil-alt"></i>
                                 </a>
                                 <a href="includes/functions/desactivar_usuario.php?id=<?php echo $usuarios['usr_id']; ?>" class="btn btn-danger btn-circle btn-sm">
