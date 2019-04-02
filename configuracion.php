@@ -1,5 +1,3 @@
-
-
 <?php
 require('includes/functions/funciones.php');
 session_start();
@@ -10,39 +8,38 @@ require('includes/templates/master_header.php');
 ?>
 
 <?php 
-$mensaje='';
-if(isset($_GET['msg'])){
-    $mensaje=$_GET['msg'];
+$mensaje = '';
+if (isset($_GET['msg'])) {
+    $mensaje = $_GET['msg'];
 };
 
-$mensajeU='';
-if(isset($_GET['mensaje'])){
-    $mensajeU=$_GET['mensaje'];
+$mensajeU = '';
+if (isset($_GET['mensaje'])) {
+    $mensajeU = $_GET['mensaje'];
 };
 
 
-$mensajeP='';
-if(isset($_GET['msgp'])){
-    $mensajeP=$_GET['msgp'];
+$mensajeP = '';
+if (isset($_GET['msgp'])) {
+    $mensajeP = $_GET['msgp'];
 };
 ?>
 
 
 <?php
-try{
+try {
     require_once("includes/functions/bd_conexion.php");
-    $sqlUsuarios="SELECT usr_id, case when usr_tipo=1 then 'Administrador' else 'usuario' end tipo, usr_nombre, usr_email 
+    $sqlUsuarios = "SELECT usr_id, case when usr_tipo=1 then 'Administrador' else 'usuario' end tipo, usr_nombre, usr_email 
     FROM usuario where usr_estado=1;";
-    $resultado=$conn->query($sqlUsuarios);
+    $resultado = $conn->query($sqlUsuarios);
 
-    $sqlCat="SELECT cat_id,cat_nombre FROM categoria_medicamento WHERE cat_estado=1;";
-    $cat_result=$conn->query($sqlCat);    
+    $sqlCat = "SELECT cat_id,cat_nombre FROM categoria_medicamento WHERE cat_estado=1;";
+    $cat_result = $conn->query($sqlCat);
 
-    $sqlPre="SELECT pre_id,pre_nombre FROM presentacion;";
-    $pre_result=$conn->query($sqlPre);
-
-}catch (Exception $e){
-    $error=$e.getMessage();
+    $sqlPre = "SELECT pre_id,pre_nombre FROM presentacion;";
+    $pre_result = $conn->query($sqlPre);
+} catch (Exception $e) {
+    $error = $e . getMessage();
 }
 ?>
 
@@ -56,7 +53,7 @@ try{
             <div class="card-body card-block">
 
                 <div class="login-form">
-                    <form  action="crear_usuario.php" method="POST" >
+                    <form action="crear_usuario.php" method="POST">
                         <div class="form-group">
                             <label>Nombre de usuario</label>
                             <input name="user" type="text" class="form-control" placeholder="Usuario">
@@ -76,9 +73,18 @@ try{
                         <div class="form-group">
                             <label for="categoria" class=" form-control-label">Tipo de usuario</label>
                             <select name="ddlTipo" id="ddlTipo" class="form-control">
-                                <option  value="1">Admin</option>
+                                <option value="1">Admin</option>
                                 <option value="2" selected="true">Empleado</option>
                             </select>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-6">
+                                <label class=" form-control-label">Una imagen .png, .jpg, jpeg no mayor a 10mb</label>
+                                <input id="subirImg" onchange="PreviewImage(this);" class="form-control" type="file" name="file">
+                            </div>
+                            <div class="col-md-6">
+                                <img id="imagen" width="100" src="" alt="">
+                            </div>
                         </div>
                         <div class="col-lg-6 offset-md-3 mr-auto ml-auto">
                             <button type="submit" name="btnAgregar" class="btn btn-info btn-block">Agregar usuario
@@ -86,7 +92,7 @@ try{
                         </div>
                         <?php echo $mensajeU; ?>
                     </form>
-                    
+
                 </div>
 
             </div>
@@ -109,7 +115,7 @@ try{
                         </tr>
                     </thead>
                     <tbody>
-                    <?php while ($usuarios=$resultado->fetch_assoc()){  ?>
+                        <?php while ($usuarios = $resultado->fetch_assoc()) {  ?>
                         <tr>
                             <td align="center">
                                 <a href="#" class="btn btn-success btn-circle btn-sm">
@@ -123,7 +129,8 @@ try{
                             <td><?php echo $usuarios["usr_nombre"] ?></td>
                             <td><?php echo $usuarios["usr_email"] ?></td>
                         </tr>
-                        <?php  }  ?>
+                        <?php 
+                    }  ?>
                     </tbody>
                 </table>
             </div>
@@ -175,11 +182,10 @@ try{
                         </tr>
                     </thead>
                     <tbody>
-                    <?php while ($categorias=$cat_result->fetch_assoc()){  ?>
+                        <?php while ($categorias = $cat_result->fetch_assoc()) {  ?>
                         <tr role="row" class="odd">
                             <td align="center">
-                            <button class="btn btn-success btn-circle btn-sm" data-toggle="modal" data-target="#modalEdicionC"
-                                onclick="agregaformC('<?php echo $categorias['cat_nombre'] ?>',<?php echo $categorias['cat_id'] ?>)">
+                                <button class="btn btn-success btn-circle btn-sm" data-toggle="modal" data-target="#modalEdicionC" onclick="agregaformC('<?php echo $categorias['cat_nombre'] ?>',<?php echo $categorias['cat_id'] ?>)">
                                     <i class="fas fa-pencil-alt"></i>
                                 </button>
                                 <a href="includes/functions/borrar_categoria.php?id=<?php echo $categorias['cat_id']; ?>" class="btn btn-danger btn-circle btn-sm">
@@ -189,7 +195,8 @@ try{
                             <td><?php echo $categorias["cat_id"]; ?></td>
                             <td><?php echo $categorias["cat_nombre"]; ?></td>
                         </tr>
-                    <?php } ?>
+                        <?php 
+                    } ?>
                     </tbody>
                 </table>
             </div>
@@ -241,11 +248,10 @@ try{
                         </tr>
                     </thead>
                     <tbody>
-                    <?php while ($presentacion=$pre_result->fetch_assoc()){  ?>
+                        <?php while ($presentacion = $pre_result->fetch_assoc()) {  ?>
                         <tr role="row" class="odd">
                             <td align="center">
-                                <button class="btn btn-success btn-circle btn-sm" data-toggle="modal" data-target="#modalEdicionP"
-                                onclick="agregaformP('<?php echo $presentacion['pre_nombre'] ?>',<?php echo $presentacion['pre_id'] ?>)">
+                                <button class="btn btn-success btn-circle btn-sm" data-toggle="modal" data-target="#modalEdicionP" onclick="agregaformP('<?php echo $presentacion['pre_nombre'] ?>',<?php echo $presentacion['pre_id'] ?>)">
                                     <i class="fas fa-pencil-alt"></i>
                                 </button>
                                 <a href="includes/functions/borrar_pre.php?id=<?php echo $presentacion['pre_id']; ?>" class="btn btn-danger btn-circle btn-sm">
@@ -255,7 +261,8 @@ try{
                             <td><?php echo $presentacion["pre_id"] ?></td>
                             <td><?php echo $presentacion["pre_nombre"] ?></td>
                         </tr>
-                    <?php } ?>
+                        <?php 
+                    } ?>
                     </tbody>
                 </table>
             </div>
@@ -269,60 +276,59 @@ require('includes/templates/master_footer.php');
 
 <!-- modal categorias -->
 <div class="modal fade" id="modalEdicionC" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-              <div class="modal-dialog modal-sm" role="document">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="myModalLabel">Actualizar datos</h4>
-                </div>
-                <div class="modal-body">
-                    <input type="text" hidden="" id="cat_id" name="">
-                    <label>Categoria</label>
-                    <input type="text" name="" id="cat_nombre" class="form-control input-sm">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Actualizar datos</h4>
+            </div>
+            <div class="modal-body">
+                <input type="text" hidden="" id="cat_id" name="">
+                <label>Categoria</label>
+                <input type="text" name="" id="cat_nombre" class="form-control input-sm">
 
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-warning" id="EditCategoria" data-dismiss="modal">Actualizar</button>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-warning" id="EditCategoria" data-dismiss="modal">Actualizar</button>
 
-                </div>
             </div>
         </div>
     </div>
+</div>
 <!-- fin modal categorias -->
 
 <!-- modal presentaciones -->
 <div class="modal fade" id="modalEdicionP" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-              <div class="modal-dialog modal-sm" role="document">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="myModalLabel">Actualizar datos</h4>
-                </div>
-                <div class="modal-body">
-                    <input type="text" hidden="" id="id_pre" name="">
-                    <label>Presentación</label>
-                    <input type="text" name="" id="nombreP" class="form-control input-sm">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Actualizar datos</h4>
+            </div>
+            <div class="modal-body">
+                <input type="text" hidden="" id="id_pre" name="">
+                <label>Presentación</label>
+                <input type="text" name="" id="nombreP" class="form-control input-sm">
 
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-warning" id="EditPresentacion" data-dismiss="modal">Actualizar</button>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-warning" id="EditPresentacion" data-dismiss="modal">Actualizar</button>
 
-                </div>
             </div>
         </div>
     </div>
+</div>
 <!-- fin modal presentaciones -->
 <script src="js/funciones.js"></script>
 <script>
-$('#EditPresentacion').click(function(){
-          actualizaPre();
-        });
+    $('#EditPresentacion').click(function() {
+        actualizaPre();
+    });
 
-$('#EditCategoria').click(function(){
-    actualizaCat();
+    $('#EditCategoria').click(function() {
+        actualizaCat();
 
-});
+    });
+</script>
 
-        </script>
 </html> 
-
