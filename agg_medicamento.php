@@ -6,13 +6,13 @@ admin_autenticado();
 ?>
 
 <?php
-$mensajeU='';
-if(isset($_GET['mensaje'])){
-    $mensajeU=$_GET['mensaje'];
+$mensajeU = '';
+if (isset($_GET['mensaje'])) {
+    $mensajeU = $_GET['mensaje'];
 };
 ?>
 
-<?php 
+<?php
 require('includes/templates/master_header.php');
 ?>
 
@@ -24,60 +24,60 @@ require('includes/templates/master_header.php');
             <form action="includes/functions/crear_medicamento.php" method="POST" enctype="multipart/form-data">
                 <div class="form-group row">
                     <div class="col-sm-7 mb-3 mb-sm-0">
-                        <input type="text" class="form-control form-control-user" name="txtMedicamento" placeholder="Nombre medicamento">
+                        <input type="text" class="form-control form-control-user" id="txtMedicamento" name="txtMedicamento" placeholder="Nombre medicamento">
                     </div>
                     <div class="col-sm-5">
                         <select class="form-control" name="comboP">
-                            <option>Presentación</option> 
+                            <option>Presentación</option>
 
                             <?php
                             require_once("includes/functions/bd_conexion.php");
 
-                            $sql="SELECT pre_id,pre_nombre from presentacion";
+                            $sql = "SELECT pre_id,pre_nombre from presentacion";
                             $result = $conn->query($sql);
 
                             while ($valores = mysqli_fetch_array($result)) {
-                        
-                                echo '<option value="'.$valores[pre_id].'">'.$valores[pre_nombre].'</option>';
-                              }
-                        ?>       
+
+                                echo '<option value="' . $valores[pre_id] . '">' . $valores[pre_nombre] . '</option>';
+                            }
+                            ?>
                         </select>
                     </div>
                 </div>
                 <div class="form-group row">
                     <div class="col-sm-6">
-                        <select class="form-control" name="comboC">
+                        <select class="form-control" id="comboC" name="comboC">
                             <option>Categoría</option>
 
                             <?php
                             require_once("includes/functions/bd_conexion.php");
 
-                            $sql="SELECT cat_id,cat_nombre from categoria_medicamento where cat_estado=1";
+                            $sql = "SELECT cat_id,cat_nombre from categoria_medicamento where cat_estado=1";
                             $result = $conn->query($sql);
 
                             while ($valores = mysqli_fetch_array($result)) {
-                        
-                                echo '<option value="'.$valores[cat_id].'">'.$valores[cat_nombre].'</option>';
-                              }
-                        ?>    
+
+                                echo '<option value="' . $valores[cat_id] . '">' . $valores[cat_nombre] . '</option>';
+                            }
+                            ?>
 
                         </select>
                     </div>
                     <div class="col-sm-6">
-                        <input type="date" class="form-control form-control-user" name="fechaMed">
+                        <input type="date" class="form-control form-control-user" id="fechaMed" name="fechaMed">
                     </div>
                 </div>
                 <div class="form-group row">
                     <div class="col-sm-6">
-                        <input type="text" class="form-control form-control-user" name="txtPrecioCompra" placeholder="Precio Compra">
+                        <input type="text" class="form-control form-control-user" id="txtPrecioCompra" name="txtPrecioCompra" placeholder="Precio Compra">
                     </div>
                     <div class="col-sm-6">
-                        <input type="text" class="form-control form-control-user" name="txtPrecioVenta" placeholder="Precio Venta">
+                        <input type="text" class="form-control form-control-user" id="txtPrecioVenta" name="txtPrecioVenta" placeholder="Precio Venta">
                     </div>
                 </div>
                 <div class="form-group row">
-                <div class="col-sm-6">
-                        <input type="text" class="form-control form-control-user"  name="txtStock" placeholder="Stock">
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control form-control-user" id="txtStock" name="txtStock" placeholder="Stock">
                     </div>
                 </div>
                 <div class="form-group row">
@@ -95,12 +95,12 @@ require('includes/templates/master_header.php');
                         <span class="icon text-white-50">
                             <i class="fas fa-plus"></i>
                         </span>
-                        <button type="submit"  name="btnAgregarMed">Agregar medicamento</button>
+                        <button type="submit" name="btnAgregarMed">Agregar medicamento</button>
 
-                        
-                        </a>
+
+                    </a>
                 </div>
-                
+
                 <hr>
                 <?php echo $mensajeU; ?>
             </form>
@@ -110,9 +110,9 @@ require('includes/templates/master_header.php');
 
 </div>
 
-<?php 
-require('includes/templates/master_footer.php');
-?>
+<?php
+                            require('includes/templates/master_footer.php');
+                            ?>
 
 <!-- Page level plugins -->
 <script src="vendor/datatables/jquery.dataTables.min.js"></script>
@@ -140,4 +140,4 @@ require('includes/templates/master_footer.php');
 </script>
 </body>
 
-</html> 
+</html>

@@ -11,6 +11,7 @@ function agregaformC(nombre, id) {
 	$('#cat_id').val(id);
 }
 
+//mostrar datos modal actualizar medicamento
 function agregaformM(nombre, stock, categoria, presentacion, precio_compra, precio_venta, fechaV, id) {
 
 	$('#nombreM').val(nombre);
