@@ -1,5 +1,24 @@
+<?php
+require('includes/functions/funciones.php');
+session_start();
+admin_autenticado();
+?>
+
 <?php 
 require('includes/templates/master_header.php');
+?>
+
+<?php
+try {
+    require_once("includes/functions/bd_conexion.php");
+    $sql= "SELECT venta_id,venta_fecha,venta_total,cliente_nombre,emp_nombre FROM venta
+    JOIN cliente ON cliente.cliente_id=venta.cliente_id
+    JOIN empleado ON empleado.emp_id=venta.emp_id;";
+    $ventas = $conn->query($sql);
+    
+} catch (Exception $e) {
+    $error = $e . getMessage();
+}
 ?>
 
 <!-- DataTales salidas -->
@@ -15,63 +34,25 @@ require('includes/templates/master_header.php');
                     <tr>
                         <th>Ver</th>
                         <th>Fecha</th>
+                        <th>Cliente</th>
+                        <th>Empleado</th>
                         <th>Total</th>
-                        <th>Usuario</th>
                     </tr>
                 </thead>
-                <tfoot>
-                    <tr>
-                        <td>
-                            <a href="#" class="btn btn-success btn-circle btn-sm">
-                                <i class="fas fa-eye" data-toggle="modal" data-target="#modalDetalle">
-                                </i>
-                            </a>
-                        </td>
-                        <td>01/01/2019</td>
-                        <td>$100.00</td>
-                        <td>Usuario 1</td>
-                    </tr>
-                </tfoot>
                 <tbody>
+                <?php while ($venta = $ventas->fetch_assoc()) {  ?>
                     <tr>
                         <td>
                             <a href="#" class="btn btn-success btn-circle btn-sm">
                                 <i class="fas fa-eye" data-toggle="modal" data-target="#modalDetalle"></i>
                             </a>
                         </td>
-                        <td>01/01/2019</td>
-                        <td>$100.00</td>
-                        <td>Usuario 1</td>
-                    <tr>
-                        <td>
-                            <a href="#" class="btn btn-success btn-circle btn-sm">
-                                <i class="fas fa-eye" data-toggle="modal" data-target="#modalDetalle"></i>
-                            </a>
-                        </td>
-                        <td>01/01/2019</td>
-                        <td>$100.00</td>
-                        <td>Usuario 1</td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <a href="#" class="btn btn-success btn-circle btn-sm">
-                                <i class="fas fa-eye" data-toggle="modal" data-target="#modalDetalle"></i>
-                            </a>
-                        </td>
-                        <td>01/01/2019</td>
-                        <td>$100.00</td>
-                        <td>Usuario 1</td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <a href="#" class="btn btn-success btn-circle btn-sm">
-                                <i class="fas fa-eye" data-toggle="modal" data-target="#modalDetalle"></i>
-                            </a>
-                        </td>
-                        <td>01/01/2019</td>
-                        <td>$100.00</td>
-                        <td>Usuario 1</td>
-                    </tr>
+                        <td><?php echo $venta["venta_fecha"] ?></td>
+                        <td><?php echo $venta["cliente_nombre"] ?></td>
+                        <td><?php echo $venta["emp_nombre"] ?></td>
+                        <td><?php echo $venta["venta_total"] ?></td>
+                    </tr>   
+                <?php } ?>   
                 </tbody>
             </table>
         </div>

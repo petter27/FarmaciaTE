@@ -1,3 +1,9 @@
+<?php
+require('includes/functions/funciones.php');
+session_start();
+admin_autenticado();
+?>
+
 <?php 
 require('includes/templates/master_header.php');
 ?>
@@ -6,7 +12,7 @@ require('includes/templates/master_header.php');
 try {
     require_once("includes/functions/bd_conexion.php");
     $sqlEntradas = "SELECT * FROM compra;";
-    $resultado = $conn->query($sqlEntradas);
+    $compras = $conn->query($sqlEntradas);
     
 } catch (Exception $e) {
     $error = $e . getMessage();
@@ -25,65 +31,26 @@ try {
                 <thead>
                     <tr>
                         <th>Ver</th>
+                        <th>ID</th>
                         <th>Fecha</th>
                         <th>Total</th>
-                        <th>Usuario</th>
                     </tr>
                 </thead>
-                <tfoot>
-                    <tr>
-                        <td>
-                            <a href="#" class="btn btn-success btn-circle btn-sm">
-                                <i class="fas fa-eye" data-toggle="modal" data-target="#modalDetalle">
-                                </i>
-                            </a>
-                        </td>
-                        <td>01/01/2019</td>
-                        <td>$100.00</td>
-                        <td>Usuario 1</td>
-                    </tr>
-                </tfoot>
+                
                 <tbody>
+                <?php while ($compra = $compras->fetch_assoc()) {  ?>
                     <tr>
                         <td>
                             <a href="#" class="btn btn-success btn-circle btn-sm">
                                 <i class="fas fa-eye" data-toggle="modal" data-target="#modalDetalle"></i>
                             </a>
                         </td>
-                        <td>01/01/2019</td>
-                        <td>$100.00</td>
-                        <td>Usuario 1</td>
-                    <tr>
-                        <td>
-                            <a href="#" class="btn btn-success btn-circle btn-sm">
-                                <i class="fas fa-eye" data-toggle="modal" data-target="#modalDetalle"></i>
-                            </a>
-                        </td>
-                        <td>01/01/2019</td>
-                        <td>$100.00</td>
-                        <td>Usuario 1</td>
+                        <td><?php echo $compra["compra_id"] ?></td>
+                        <td><?php echo $compra["compra_fecha"] ?></td>
+                        <td> <?php echo $compra["compra_total"] ?></td>
                     </tr>
-                    <tr>
-                        <td>
-                            <a href="#" class="btn btn-success btn-circle btn-sm">
-                                <i class="fas fa-eye" data-toggle="modal" data-target="#modalDetalle"></i>
-                            </a>
-                        </td>
-                        <td>01/01/2019</td>
-                        <td>$100.00</td>
-                        <td>Usuario 1</td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <a href="#" class="btn btn-success btn-circle btn-sm">
-                                <i class="fas fa-eye" data-toggle="modal" data-target="#modalDetalle"></i>
-                            </a>
-                        </td>
-                        <td>01/01/2019</td>
-                        <td>$100.00</td>
-                        <td>Usuario 1</td>
-                    </tr>
-                </tbody>
+                <?php }  ?>
+                     </tbody>  
             </table>
         </div>
     </div>
