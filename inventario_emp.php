@@ -1,4 +1,4 @@
-<?php 
+<?php
 require('includes/templates/master_header_emp.php');
 emp_autenticado();
 ?>
@@ -39,16 +39,16 @@ try {
                     <tr>
                         <?php while ($medicamentos = $resultado->fetch_assoc()) {  ?>
 
-                        <td><?php echo '<img src="img/' . $medicamentos["med_img"] . '" width="100px" height="100px"/>' ?></td>
-                        <td><?php echo $medicamentos["med_nombre"] ?></td>
-                        <td><?php echo $medicamentos["med_stock"] ?></td>
-                        <td><?php echo $medicamentos["cat_nombre"] ?></td>
-                        <td><?php echo $medicamentos["pre_nombre"] ?></td>
-                        <td>$<?php echo $medicamentos["med_precioC"] ?></td>
-                        <td>$<?php echo $medicamentos["med_precioV"] ?></td>
-                        <td><?php echo $medicamentos["med_fechaV"] ?></td>
-                    </tr>
-                    <?php 
+                            <td><?php echo '<img src="img/products/' . $medicamentos["med_img"] . '" width="100px" height="100px"/>' ?></td>
+                            <td><?php echo $medicamentos["med_nombre"] ?></td>
+                            <td><?php echo $medicamentos["med_stock"] ?></td>
+                            <td><?php echo $medicamentos["cat_nombre"] ?></td>
+                            <td><?php echo $medicamentos["pre_nombre"] ?></td>
+                            <td>$<?php echo $medicamentos["med_precioC"] ?></td>
+                            <td>$<?php echo $medicamentos["med_precioV"] ?></td>
+                            <td><?php echo $medicamentos["med_fechaV"] ?></td>
+                        </tr>
+                    <?php
                 }  ?>
                 </tbody>
             </table>
@@ -56,7 +56,7 @@ try {
     </div>
 </div>
 
-<?php 
+<?php
 require('includes/templates/master_footer.php');
 ?>
 
@@ -68,4 +68,4 @@ require('includes/templates/master_footer.php');
 <script src="js/demo/datatables-demo.js"></script>
 </body>
 
-</html> 
+</html>
