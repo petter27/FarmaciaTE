@@ -2,6 +2,17 @@
 require('includes/templates/master_header.php');
 ?>
 
+<?php
+try {
+    require_once("includes/functions/bd_conexion.php");
+    $sqlEntradas = "SELECT * FROM compra;";
+    $resultado = $conn->query($sqlEntradas);
+    
+} catch (Exception $e) {
+    $error = $e . getMessage();
+}
+?>
+
 <!-- DataTales Entradas -->
 <div class="card shadow mb-4">
     <div class="card-header py-3">

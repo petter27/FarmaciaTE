@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 28-03-2019 a las 01:29:48
+-- Tiempo de generación: 05-04-2019 a las 23:30:04
 -- Versión del servidor: 10.1.31-MariaDB
 -- Versión de PHP: 7.2.3
 
@@ -39,10 +39,7 @@ CREATE TABLE `categoria_medicamento` (
 --
 
 INSERT INTO `categoria_medicamento` (`cat_id`, `cat_nombre`, `cat_estado`) VALUES
-(2, 'hola', 1),
-(3, 'catr2', 1),
-(4, 'ihiuh', 1),
-(5, 'buguyfyu', 1);
+(10, 'nueva', 1);
 
 -- --------------------------------------------------------
 
@@ -80,7 +77,7 @@ CREATE TABLE `detalle_compra` (
   `med_id` int(11) DEFAULT NULL,
   `det_compra_cantidad` int(11) DEFAULT NULL,
   `det_compra_subtotal` decimal(8,2) DEFAULT NULL,
-  `detalle_compracol` decimal(8,2) DEFAULT NULL
+  `compra_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -93,7 +90,8 @@ CREATE TABLE `detalle_venta` (
   `det_venta_id` int(11) NOT NULL,
   `med_id` int(11) DEFAULT NULL,
   `det_venta_cantidad` int(11) DEFAULT NULL,
-  `det_venta_subtotal` decimal(8,2) DEFAULT NULL
+  `det_venta_subtotal` decimal(8,2) DEFAULT NULL,
+  `venta_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -125,8 +123,16 @@ CREATE TABLE `medicamentos` (
   `cat_id` int(11) DEFAULT NULL,
   `pre_id` int(11) DEFAULT NULL,
   `med_fechaV` date DEFAULT NULL,
-  `med_estado` int(11) DEFAULT NULL
+  `med_estado` int(11) DEFAULT NULL,
+  `med_img` varchar(200) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `medicamentos`
+--
+
+INSERT INTO `medicamentos` (`med_id`, `med_nombre`, `med_stock`, `med_precioC`, `med_precioV`, `cat_id`, `pre_id`, `med_fechaV`, `med_estado`, `med_img`) VALUES
+(1, 'Acetaminofen', 200, '0.50', '0.00', 10, 1, '2020-02-02', 1, 'camisa1.jpg');
 
 -- --------------------------------------------------------
 
@@ -144,7 +150,7 @@ CREATE TABLE `presentacion` (
 --
 
 INSERT INTO `presentacion` (`pre_id`, `pre_nombre`) VALUES
-(1, 'jarabe');
+(1, 'Tableta');
 
 -- --------------------------------------------------------
 
@@ -154,25 +160,21 @@ INSERT INTO `presentacion` (`pre_id`, `pre_nombre`) VALUES
 
 CREATE TABLE `usuario` (
   `usr_id` int(11) NOT NULL,
-  `usr_nombre` varchar(60) NOT NULL,
+  `usr_nombre` varchar(60) DEFAULT NULL,
   `usr_password` varchar(60) DEFAULT NULL,
-  `usr_email` varchar(100) NOT NULL,
   `usr_tipo` int(11) DEFAULT NULL,
-  `usr_estado` int(1) DEFAULT NULL
+  `usr_estado` int(1) DEFAULT NULL,
+  `usr_img` varchar(150) DEFAULT NULL,
+  `usr_email` varchar(150) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `usuario`
 --
 
-INSERT INTO `usuario` (`usr_id`, `usr_nombre`, `usr_password`, `usr_email`, `usr_tipo`, `usr_estado`) VALUES
-(4, 'pedro', '$2y$12$QBDR7EDPQM2frZuWYDXHdeVpaR0oKFmj7w0jiAa6iS.87Bjx9x7ju', 'pedropacheco1523503@gmail.com', 2, 1),
-(5, 'admin', '$2y$12$IH8Z1viI1ufT11jCLeUjhuRPaEoxOpSoFIAhYlcYyl9v2EkpCVIPK', 'admin@gmail.com', 1, 1),
-(6, 'jeffry', '$2y$12$qja.SKSdMBOG1K0USHh6q.k6EbTcpe2xLRgfqWY.HKjoulOT518Dm', 'jrsv@gmail.com', 1, 1),
-(59, 'miguel', '$2y$12$PpWCviLmco50w7oucABhZ.x2kL/v7gAsGs/EVQyJeizFOJyzSdQ.W', 'migue@gmail.com', 2, 1),
-(63, 'pacheco', '$2y$12$Ula/QG3HYJ8tY0aLaxO4U.mj1uvh6nftZpVkK4qEIwXCmiz0/i/Fq', 'gdlwebcam27@gmail.com', 1, 1),
-(64, 'Pedro Pacheco', '$2y$12$nmnffgcR1z6sIQiDLq9Y3.NXu3x4bgVuReC/YuIMhcp6ZuXVFgP/e', 'pedropacheco1523503@gmail.com', 2, 1),
-(66, 'gdl webcamp', '$2y$12$2t.cRxv0vTFg5exd7TRCPuE4jMm0yJap7CHUhZimMHb9A2d/K34WW', 'gdlwebcam27@gmail.com', 2, 0);
+INSERT INTO `usuario` (`usr_id`, `usr_nombre`, `usr_password`, `usr_tipo`, `usr_estado`, `usr_img`, `usr_email`) VALUES
+(4, 'pedro', '$2y$12$QBDR7EDPQM2frZuWYDXHdeVpaR0oKFmj7w0jiAa6iS.87Bjx9x7ju', 2, 0, '', 'pedropacheco1523503@gmail.com'),
+(5, 'admin', '$2y$12$IH8Z1viI1ufT11jCLeUjhuRPaEoxOpSoFIAhYlcYyl9v2EkpCVIPK', 1, 1, '', 'admin@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -181,10 +183,11 @@ INSERT INTO `usuario` (`usr_id`, `usr_nombre`, `usr_password`, `usr_email`, `usr
 --
 
 CREATE TABLE `venta` (
-  `venta_id` int(11) NOT NULL,
   `venta_fecha` datetime DEFAULT NULL,
   `venta_subtotal` decimal(8,2) DEFAULT NULL,
-  `cliente_id` int(11) DEFAULT NULL
+  `cliente_id` int(11) DEFAULT NULL,
+  `emp_id` int(11) DEFAULT NULL,
+  `venta_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -214,25 +217,32 @@ ALTER TABLE `compra`
 -- Indices de la tabla `detalle_compra`
 --
 ALTER TABLE `detalle_compra`
-  ADD PRIMARY KEY (`det_compra_id`);
+  ADD PRIMARY KEY (`det_compra_id`),
+  ADD KEY `fk_detalle_compra_compra_idx` (`compra_id`),
+  ADD KEY `fk_detalle_compra_medicamento_idx` (`med_id`);
 
 --
 -- Indices de la tabla `detalle_venta`
 --
 ALTER TABLE `detalle_venta`
-  ADD PRIMARY KEY (`det_venta_id`);
+  ADD PRIMARY KEY (`det_venta_id`),
+  ADD KEY `fk_detalle_venta_venta_idx` (`venta_id`),
+  ADD KEY `fk_detalle_venta_medicamento_idx` (`med_id`);
 
 --
 -- Indices de la tabla `empleado`
 --
 ALTER TABLE `empleado`
-  ADD PRIMARY KEY (`emp_id`);
+  ADD PRIMARY KEY (`emp_id`),
+  ADD KEY `fk_empleado_usuario_idx` (`usr_id`);
 
 --
 -- Indices de la tabla `medicamentos`
 --
 ALTER TABLE `medicamentos`
-  ADD PRIMARY KEY (`med_id`);
+  ADD PRIMARY KEY (`med_id`),
+  ADD KEY `fk_mediacemnto_categoria_idx` (`cat_id`),
+  ADD KEY `fk_medicamento_presentacion_idx` (`pre_id`);
 
 --
 -- Indices de la tabla `presentacion`
@@ -252,7 +262,9 @@ ALTER TABLE `usuario`
 -- Indices de la tabla `venta`
 --
 ALTER TABLE `venta`
-  ADD PRIMARY KEY (`venta_id`);
+  ADD PRIMARY KEY (`venta_id`),
+  ADD KEY `fk_venta_empleado_idx` (`emp_id`),
+  ADD KEY `fk_venta_cliente_idx` (`cliente_id`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
@@ -262,7 +274,7 @@ ALTER TABLE `venta`
 -- AUTO_INCREMENT de la tabla `categoria_medicamento`
 --
 ALTER TABLE `categoria_medicamento`
-  MODIFY `cat_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `cat_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de la tabla `cliente`
@@ -298,7 +310,7 @@ ALTER TABLE `empleado`
 -- AUTO_INCREMENT de la tabla `medicamentos`
 --
 ALTER TABLE `medicamentos`
-  MODIFY `med_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `med_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `presentacion`
@@ -310,13 +322,51 @@ ALTER TABLE `presentacion`
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `usr_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
+  MODIFY `usr_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `venta`
 --
 ALTER TABLE `venta`
   MODIFY `venta_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- Restricciones para tablas volcadas
+--
+
+--
+-- Filtros para la tabla `detalle_compra`
+--
+ALTER TABLE `detalle_compra`
+  ADD CONSTRAINT `fk_detalle_compra_compra` FOREIGN KEY (`compra_id`) REFERENCES `compra` (`compra_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_detalle_compra_medicamento` FOREIGN KEY (`med_id`) REFERENCES `medicamentos` (`med_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Filtros para la tabla `detalle_venta`
+--
+ALTER TABLE `detalle_venta`
+  ADD CONSTRAINT `fk_detalle_venta_medicamento` FOREIGN KEY (`med_id`) REFERENCES `medicamentos` (`med_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_detalle_venta_venta` FOREIGN KEY (`venta_id`) REFERENCES `venta` (`venta_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Filtros para la tabla `empleado`
+--
+ALTER TABLE `empleado`
+  ADD CONSTRAINT `fk_empleado_usuario` FOREIGN KEY (`usr_id`) REFERENCES `usuario` (`usr_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Filtros para la tabla `medicamentos`
+--
+ALTER TABLE `medicamentos`
+  ADD CONSTRAINT `fk_mediacemento_categoria` FOREIGN KEY (`cat_id`) REFERENCES `categoria_medicamento` (`cat_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_medicamento_presentacion` FOREIGN KEY (`pre_id`) REFERENCES `presentacion` (`pre_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Filtros para la tabla `venta`
+--
+ALTER TABLE `venta`
+  ADD CONSTRAINT `fk_venta_cliente` FOREIGN KEY (`cliente_id`) REFERENCES `cliente` (`cliente_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_venta_empleado` FOREIGN KEY (`emp_id`) REFERENCES `empleado` (`emp_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
