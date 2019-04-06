@@ -8,26 +8,40 @@ require('includes/templates/master_header.php');
 ?>
 
 <?php
+
+$cat_card = '';
+$pre_card = '';
+$user_card = 'show';
+$emp_card = '';
+
 $mensaje = '';
 if (isset($_GET['msg'])) {
     $mensaje = $_GET['msg'];
+    $cat_card = 'show';
+    $user_card = '';
 };
 
-$mensajeU = '';
+$mensajeU = ' ';
 if (isset($_GET['mensaje'])) {
     $mensajeU = $_GET['mensaje'];
+    $user_card = 'show';
 };
 
 
 $mensajeP = '';
 if (isset($_GET['msgp'])) {
     $mensajeP = $_GET['msgp'];
+    $pre_card = 'show';
+    $user_card = '';
 };
 
 $mensajeEmp = '';
 if (isset($_GET['msgemp'])) {
     $mensajeEmp = $_GET['msgemp'];
+    $emp_card = 'show';
+    $user_card = '';
 };
+
 
 ?>
 
@@ -57,11 +71,11 @@ try {
 <div class="accordion" id="accordionExample">
     <!-- Usuarios -->
     <div class="card">
-        <div class="card-header" id="headingOne" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+        <div class="card-header <?php echo $user_card; ?>" id="headingOne" data-toggle="collapse" data-target="#collapseOne" aria-controls="collapseOne">
             <h3>USUARIOS</h3>
         </div>
 
-        <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+        <div id="collapseOne" class="collapse <?php echo $user_card; ?>" aria-labelledby="headingOne" data-parent="#accordionExample">
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-6">
@@ -161,11 +175,11 @@ try {
     </div>
     <!-- Empleados -->
     <div class="card">
-        <div class="card-header" id="headingEmp" data-toggle="collapse" data-target="#collapseEmp" aria-controls="collapseEmp">
+        <div class="card-header" id="headingEmp" data-toggle="collapse" data-target="#collapseEmp" <?php echo "aria-expanded='{$emp_card}'"; ?> aria-controls="collapseEmp">
             <h3>EMPLEADOS</h3>
         </div>
 
-        <div id="collapseEmp" class="collapse" aria-labelledby="headingEmp" data-parent="#accordionExample">
+        <div id="collapseEmp" class="collapse <?php echo $emp_card; ?>" aria-labelledby="headingEmp" data-parent="#accordionExample">
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-6">
@@ -267,10 +281,10 @@ try {
     </div>
     <!-- Categorías -->
     <div class="card">
-        <div class="card-header" id="headingTwo" data-toggle="collapse" data-target="#collapseTwo" aria-controls="collapseTwo">
+        <div class="card-header" id="headingTwo" data-toggle="collapse" data-target="#collapseTwo" <?php echo "aria-expanded='{$cat_card}'"; ?> aria-controls="collapseTwo">
             <h3>CATEGORIAS</h3>
         </div>
-        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+        <div id="collapseTwo" class="collapse <?php echo $cat_card; ?>" aria-labelledby="headingTwo" data-parent="#accordionExample">
             <div class="card-body">
                 <!-- Categorías -->
                 <div class="row">
@@ -342,10 +356,10 @@ try {
     </div>
     <!-- Presentaciones -->
     <div class="card">
-        <div class="card-header" id="headingThree" data-toggle="collapse" data-target="#collapseThree" aria-controls="collapseThree">
+        <div class="card-header" id="headingThree" data-toggle="collapse" data-target="#collapseThree" <?php echo "aria-expanded='{$pre_card}'"; ?> aria-controls="collapseThree">
             <h3>PRESENTACIONES</h3>
         </div>
-        <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+        <div id="collapseThree" class="collapse <?php echo $pre_card; ?>" aria-labelledby="headingThree" data-parent="#accordionExample">
             <div class="card-body">
                 <!-- Presentaciones -->
                 <div class="row">

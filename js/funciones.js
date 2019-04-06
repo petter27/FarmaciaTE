@@ -3,7 +3,11 @@ function edit_emp(_id) {
 	$('#modal_emp_name').val($('#emp_name' + _id).text());
 	$('#modal_emp_lname').val($('#emp_lname' + _id).text());
 	$('#modal_emp_fecha').val($('#emp_fecha' + _id).text());
-	$('#modal_emp_usr').val(_id).prop('selected', true);
+
+	$('#modal_emp_usr option').filter(function () {
+		return ($(this).text() == $('#emp_usr' + _id).text()); //To select Blue
+	}).prop('selected', true);
+
 }
 
 function agregaformP(nombre, id) {
@@ -46,7 +50,9 @@ function actualizaPre() {
 		url: "includes/functions/actualizar_presentacion.php",
 		data: cadena,
 		success: function (r) {
-			window.location.reload();
+			var url = window.location.href.split('?')[0];
+			url += "?msgp=Actualizada";
+			window.location.href = url;
 		}
 
 	});
@@ -67,9 +73,9 @@ function actualizaCat() {
 		url: "includes/functions/actualizar_categoria.php",
 		data: cadena,
 		success: function (r) {
-			window.location.reload();
-
-
+			var url = window.location.href.split('?')[0];
+			url += "?msg=Actualizada";
+			window.location.href = url;
 		}
 
 	});
