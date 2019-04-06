@@ -82,37 +82,27 @@ function actualizaCat() {
 
 }
 
-function actualizaMed() {
+function actualizaMedicamento() {
 
 	id = $('#med_id').val();
 	nombre = $('#nombreM').val();
 	stock = $('#stockM').val();
 	cat = $('#categoriaM').val();
-	presentacion = $('#pre_id').val();
+	presentacion = $('#presentacionM').val();
 	p_compra = $('#precioCompraM').val();
-	p_venta = $('#med_precioV').val();
-	fecha = $('#med_fechaV').val();
+	p_venta = $('#precioVentaM').val();
+	fecha = $('#fechaV').val();
 
 
 	cadena = "med_id=" + id +
-		"med_nombre=" + nombre;
-	"med_stock=" + stock;
-	"pre_id=" + presentacion;
-	"med_precioC=" + p_compra;
-	"med_precioV=" + p_venta;
+		"&med_nombre=" + nombre;
+	"&med_stock=" + stock;
+	"&cat_id=" + cat;
+	"&pre_id=" + presentacion;
+	"&med_precioC=" + p_compra;
+	"&med_precioV=" + p_venta;
 	"&med_fechaV=" + fecha;
 
-
-	$.ajax({
-		type: "POST",
-		url: "includes/functions/actualizar_medicamento.php",
-		data: cadena,
-		success: function (r) {
-			window.location.reload();
-
-		}
-
-	});
 
 }
 

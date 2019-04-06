@@ -15,7 +15,14 @@ try {
 } catch (Exception $e) {
     $error = $e . getMessage();
 }
+
+if(isset($_GET['msg'])){
+    echo "<h2>{$_GET['msg']}</h2>";
+}
+
 ?>
+
+
 
 <!-- DataTale Inventario -->
 <div class="card shadow mb-4">
@@ -78,17 +85,18 @@ try {
                 <h4 class="modal-title" id="myModalLabel">Actualizar Medicamento</h4>
             </div>
             <div class="modal-body">
-                <input type="text" hidden="" id="med_id" name="">
+                <form action='includes/functions/actualizar_medicamento.php' method='POST'>
+                <input type="text" hidden="" id="med_id" name="med_id">
                 <label>Nombre:</label>
-                <input type="text" name="" id="nombreM" class="form-control input-sm">
+                <input type="text" name="med_nombre" id="nombreM" class="form-control input-sm">
 
                 <label>Stock:</label>
-                <input type="text" name="" id="stockM" class="form-control input-sm">
+                <input type="text" name="med_stock" id="stockM" class="form-control input-sm">
 
                 <label>Categoria:</label>
                 <div class="form-group row">
                     <div class="col-sm-6">
-                        <select class="form-control" name="categoriaM">
+                        <select class="form-control" name="cat_id">
 
                             <?php
                             require_once("includes/functions/bd_conexion.php");
@@ -109,7 +117,7 @@ try {
                 <label>Presentacion:</label>
                 <div class="form-group row">
                     <div class="col-sm-6">
-                        <select class="form-control" name="presentacionM">
+                        <select class="form-control" name="pre_id">
 
                             <?php
                             require_once("includes/functions/bd_conexion.php");
@@ -129,14 +137,14 @@ try {
                 </div>
 
                 <label>Precio Compra:</label>
-                <input type="text" name="" id="precioCompraM" class="form-control input-sm">
+                <input type="text" name="med_precioC" id="precioCompraM" class="form-control input-sm">
 
                 <label>Precio Venta:</label>
-                <input type="text" name="" id="precioVentaM" class="form-control input-sm">
+                <input type="text" name="med_precioV" id="precioVentaM" class="form-control input-sm">
 
                 <label>Fecha Expiracion:</label>
                 <div class="col-sm-12">
-                    <input type="date" class="form-control form-control-user" id="fechaV">
+                    <input type="date" name="med_fechaV" class="form-control form-control-user" id="fechaV">
                 </div>
 
 
@@ -144,9 +152,9 @@ try {
 
 
             <div class="modal-footer">
-                <button type="button" class="btn btn-warning" id="EditMedicamento" data-dismiss="modal">Actualizar</button>
-
+                <button type="submit" class="btn btn-warning" id="EditMedicamento" name="EditMedicamento" >Actualizar</button>
             </div>
+            </form>
         </div>
     </div>
 </div>
@@ -166,11 +174,14 @@ require('includes/templates/master_footer.php');
 
 <script>
     $('#EditMedicamento').click(function() {
-        actualizaMed();
+        actualizaMedicamento();
+    });
+
+    $('#EditCategoria').click(function() {
+        actualizaCat();
     });
 </script>
 
-
 </body>
 
-</htm l>
+</html>
