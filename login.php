@@ -8,11 +8,11 @@ if (isset($_POST["login"])) {
 
   try {
     require_once("includes/functions/bd_conexion.php");
-    $stmt = $conn->prepare("SELECT usr_id, usr_nombre, usr_password, usr_tipo FROM usuario WHERE usr_nombre=? 
+    $stmt = $conn->prepare("SELECT usr_id, usr_nombre, usr_password, usr_tipo,usr_img FROM usuario WHERE usr_nombre=? 
                 AND usr_estado=1;");
     $stmt->bind_param("s", $usuario);
     $stmt->execute();
-    $stmt->bind_result($id, $nombre_usr, $password_usr, $tipo_usr);
+    $stmt->bind_result($id, $nombre_usr, $password_usr, $tipo_usr, $usr_img);
 
     while ($stmt->fetch()) {
 
@@ -21,7 +21,8 @@ if (isset($_POST["login"])) {
         $user = array(
           'id' => $id,
           'nombre' => $nombre_usr,
-          'tipo' => $tipo_usr
+          'tipo' => $tipo_usr,
+          'imagen' => $usr_img
         );
 
         if ($tipo_usr == 1) {
