@@ -37,9 +37,9 @@ function top_meds(_ctx, _labels, _datos, _max) {
       labels: _labels,
       datasets: [{
         label: "Total:",
-        backgroundColor: "#4e73df",
-        hoverBackgroundColor: "#2e59d9",
-        borderColor: "#4e73df",
+        backgroundColor: ["#2f89fc", "yellow", "#658525", "#7d0000", "#04dead", "#ff7100"],
+        hoverBackgroundColor: ["#000000", "#000000", "#000000", "#000000", "#000000", "#000000"],
+        borderColor: ["#2f89fc", "yellow", "#658525", "#7d0000", "#04dead", "#ff7100"],
         data: _datos,
       }],
     },
@@ -124,8 +124,8 @@ function top_cats(_ctx, _labels, _datos) {
       labels: _labels,
       datasets: [{
         data: _datos,
-        backgroundColor: ['#4e73df', '#1cc88a', '#36b9cc'],
-        hoverBackgroundColor: ['#2e59d9', '#17a673', '#2c9faf'],
+        backgroundColor: ["#355C7D", "#6C5B7B", "#74C476", "#C06C84", "#F67280", "#F8b195"],
+        hoverBackgroundColor: ["#000000", "#000000", "#000000", "#000000", "#000000", "#000000"],
         hoverBorderColor: "rgba(234, 236, 244, 1)",
       }],
     },
