@@ -41,7 +41,7 @@ try {
                 <?php while ($compra = $compras->fetch_assoc()) {  ?>
                     <tr>
                         <td>
-                            <a href="#" class="btn btn-success btn-circle btn-sm">
+                            <a data="<?php echo $compra["compra_id"] ?>"  class="btn btn-success btn-circle btn-sm detalle">
                                 <i class="fas fa-eye" data-toggle="modal" data-target="#modalDetalle"></i>
                             </a>
                         </td>
@@ -67,7 +67,7 @@ try {
                 </button>
             </div>
             <div class="modal-body">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <table class="table table-bordered" id="dataTableC" width="100%" cellspacing="0">
                     <thead>
                         <tr>
                             <th>Medicamento</th>
@@ -76,38 +76,9 @@ try {
                             <th>Subtotal</th>
                         </tr>
                     </thead>
-                    <tfoot>
-                        <tr>
-                            <td>Nombre medicamento</td>
-                            <td>$1.99</td>
-                            <td>1</td>
-                            <td>$1.99</td>
-                        </tr>
-                    </tfoot>
+                   
                     <tbody>
-                        <tr>
-                            <td>Nombre medicamento</td>
-                            <td>$1.99</td>
-                            <td>1</td>
-                            <td>$1.99</td>
-                        <tr>
-                            <td>Nombre medicamento</td>
-                            <td>$1.99</td>
-                            <td>1</td>
-                            <td>$1.99</td>
-                        </tr>
-                        <tr>
-                            <td>Nombre medicamento</td>
-                            <td>$1.99</td>
-                            <td>1</td>
-                            <td>$1.99</td>
-                        </tr>
-                        <tr>
-                            <td>Nombre medicamento</td>
-                            <td>$1.99</td>
-                            <td>1</td>
-                            <td>$1.99</td>
-                        </tr>
+                        
                     </tbody>
                 </table>
                 <div class="">
@@ -115,8 +86,8 @@ try {
                         <div class="card-body">
                             <div class="row no-gutters align-items-center">
                                 <div class="col mr-2">
-                                    <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Total entrada 01/01/2019</div>
-                                    <div class="h5 mb-0 font-weight-bold text-gray-800">$215,000</div>
+                                    <div id="FechaC" class="text-xs font-weight-bold text-success text-uppercase mb-1 ">Total entrada 01/01/2019</div>
+                                    <div id="totalCompra" class="h5 mb-0 font-weight-bold text-gray-800">$215,000</div>
                                 </div>
                                 <div class="col-auto">
                                     <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
@@ -143,6 +114,36 @@ require('includes/templates/master_footer.php');
 
 <!-- Page level custom scripts -->
 <script src="js/demo/datatables-demo.js"></script>
+
+<script >
+$(document).on('click', '.detalle', function(){
+    var id2= $(this).attr("data");
+    alert(id2);
+    $.ajax({
+            url:"includes/functions/ver_detalleC.php",
+            method:"POST",
+            data:{id:id2},
+            dataType:"json",
+            success:function(data){            	
+                $('#dataTableC').DataTable().clear();
+                var t = $("#dataTableC").DataTable();
+                for (var i in data) { 
+                    
+                t.row.add( [
+                        data[i]["med_nombre"],
+                        data[i]["med_precioC"],
+                        data[i]["det_compra_cantidad"],
+                        data[i]["det_compra_subtotal"]
+                    ]).draw( false );
+                
+                    $("#totalCompra").html("$"+data[0]["total"]);
+                    $("#fechaC").html("Total entrada "+data[0]["compra_fecha"]);
+            }
+        }
+        });
+       
+});
+</script>
 </body>
 
 </html> 
