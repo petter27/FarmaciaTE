@@ -23,6 +23,12 @@ $mensajeP = '';
 if (isset($_GET['msgp'])) {
     $mensajeP = $_GET['msgp'];
 };
+
+$mensajeEmp = '';
+if (isset($_GET['msgemp'])) {
+    $mensajeEmp = $_GET['msgemp'];
+};
+
 ?>
 
 
@@ -32,6 +38,10 @@ try {
     $sqlUsuarios = "SELECT usr_id, case when usr_tipo=1 then 'Administrador' else 'usuario' end tipo, usr_nombre, usr_email 
     FROM usuario where usr_estado=1;";
     $resultado = $conn->query($sqlUsuarios);
+
+    $queryEmp = "SELECT e.emp_id, CONCAT(e.emp_nombre, ' ', e.emp_apellido) as nombre, e.emp_fechaN as fecha, u.usr_nombre as usuario from empleado e
+    inner join usuario u on u.usr_id = e.usr_id;";
+    $emp_result = $conn->query($queryEmp);
 
     $sqlCat = "SELECT cat_id,cat_nombre FROM categoria_medicamento WHERE cat_estado=1;";
     $cat_result = $conn->query($sqlCat);
@@ -159,17 +169,17 @@ try {
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-6">
-                        <div class="card border-left-info">
+                        <div class="card border-left-primary">
                             <div class="card-header"><strong>Empleado nuevo</strong>
                                 <small> -Empleado-</small>
                             </div>
                             <div class="card-body card-block">
 
                                 <div class="login-form">
-                                    <form action="./includes/functions/CRUD_usuario.php" method="POST" enctype="multipart/form-data">
+                                    <form action="./includes/functions/CRUD_empleado.php" method="POST">
                                         <div class="form-group">
                                             <label>Nombres de empleado</label>
-                                            <input name="uemp_name" type="text" class="form-control" placeholder="Nombres">
+                                            <input name="emp_name" type="text" class="form-control" placeholder="Nombres">
                                         </div>
                                         <div class="form-group">
                                             <label>Apellidos de empleado</label>
@@ -179,11 +189,30 @@ try {
                                             <label>Fecha de nacimiento empleado</label>
                                             <input name="emp_bdate" type="date" class="form-control">
                                         </div>
+                                        <div class="form-group">
+                                            <label>Usuario empleado</label>
+                                            <select class="form-control" name="emp_usrid">
+                                                <option>Usuario</option>
+
+                                                <?php
+                                                require_once("includes/functions/bd_conexion.php");
+
+                                                $sql = "SELECT usr_id,usr_nombre FROM usuario WHERE usr_estado = 1";
+                                                $result = $conn->query($sql);
+
+                                                while ($valores = mysqli_fetch_array($result)) {
+
+                                                    echo '<option value="' . $valores[usr_id] . '">' . $valores[usr_nombre] . '</option>';
+                                                }
+                                                ?>
+                                            </select>
+                                        </div>
+
                                         <div class="col-lg-6 offset-md-3 mr-auto ml-auto">
-                                            <button type="submit" name="agg_user" class="btn btn-info btn-block">Agregar usuario
+                                            <button type="submit" name="agg_emp" class="btn btn-info btn-block">Agregar empleado
                                             </button>
                                         </div>
-                                        <?php echo $mensajeU; ?>
+                                        <?php echo $mensajeEmp; ?>
                                     </form>
 
                                 </div>
@@ -195,32 +224,32 @@ try {
                     <div class="col-md-6">
                         <div class="card">
                             <div class="card-header">
-                                <strong class="card-title">Lista de Usuarios</strong>
+                                <strong class="card-title">Lista de Empleados</strong>
                             </div>
                             <div class="card-body">
                                 <table class="table table-striped table-bordered ">
                                     <thead class="thead-dark">
                                         <tr>
                                             <th><b>Editar</b></th>
-                                            <th><b>Tipo</b></th>
+                                            <th><b>Nombre</b></th>
+                                            <th><b>Fecha Nac</b></th>
                                             <th><b>Usuario</b></th>
-                                            <th><b>e-mail</b></th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php while ($usuarios = $resultado->fetch_assoc()) {  ?>
+                                        <?php while ($empleados = $emp_result->fetch_assoc()) {  ?>
                                             <tr>
                                                 <td align="center">
-                                                    <a href="editar_usuario.php?id=<?php echo $usuarios['usr_id']; ?>" class="btn btn-success btn-circle btn-sm">
+                                                    <a href="editar_usuario.php?id=<?php echo $usuarios['emp_id']; ?>" class="btn btn-success btn-circle btn-sm">
                                                         <i class="fas fa-pencil-alt"></i>
                                                     </a>
-                                                    <a href="includes/functions/CRUD_usuario.php?delete_user=<?php echo $usuarios['usr_id']; ?>" class="btn btn-danger btn-circle btn-sm">
+                                                    <a href="includes/functions/CRUD_usuario.php?delete_user=<?php echo $usuarios['emp_id']; ?>" class="btn btn-danger btn-circle btn-sm">
                                                         <i class="fas fa-trash-alt"></i>
                                                     </a>
                                                 </td>
-                                                <td><?php echo $usuarios["tipo"] ?></td>
-                                                <td><?php echo $usuarios["usr_nombre"] ?></td>
-                                                <td><?php echo $usuarios["usr_email"] ?></td>
+                                                <td><?php echo $empleados["nombre"] ?></td>
+                                                <td><?php echo $empleados["fecha"] ?></td>
+                                                <td><?php echo $empleados["usuario"] ?></td>
                                             </tr>
                                         <?php
                                     }  ?>
