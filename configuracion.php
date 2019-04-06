@@ -39,8 +39,8 @@ try {
     FROM usuario where usr_estado=1;";
     $resultado = $conn->query($sqlUsuarios);
 
-    $queryEmp = "SELECT e.emp_id, CONCAT(e.emp_nombre, ' ', e.emp_apellido) as nombre, e.emp_fechaN as fecha, u.usr_nombre as usuario from empleado e
-    inner join usuario u on u.usr_id = e.usr_id;";
+    $queryEmp = "SELECT e.emp_id, e.emp_nombre as nombre, e.emp_apellido as apellido, e.emp_fechaN as fecha, u.usr_nombre as usuario from empleado e
+    inner join usuario u on u.usr_id = e.usr_id WHERE emp_estado = 1;";
     $emp_result = $conn->query($queryEmp);
 
     $sqlCat = "SELECT cat_id,cat_nombre FROM categoria_medicamento WHERE cat_estado=1;";
@@ -198,11 +198,12 @@ try {
                                                 require_once("includes/functions/bd_conexion.php");
 
                                                 $sql = "SELECT usr_id,usr_nombre FROM usuario WHERE usr_estado = 1";
-                                                $result = $conn->query($sql);
+                                                $resultUsr_Emp = $conn->query($sql);
+                                                $resultUsr_Emp_modal = $resultUsr_Emp;
 
-                                                while ($valores = mysqli_fetch_array($result)) {
+                                                while ($valores = mysqli_fetch_array($resultUsr_Emp)) {
 
-                                                    echo '<option value="' . $valores[usr_id] . '">' . $valores[usr_nombre] . '</option>';
+                                                    echo '<option value="' . $valores['usr_id'] . '">' . $valores['usr_nombre'] . '</option>';
                                                 }
                                                 ?>
                                             </select>
@@ -232,6 +233,7 @@ try {
                                         <tr>
                                             <th><b>Editar</b></th>
                                             <th><b>Nombre</b></th>
+                                            <th><b>Apellido</b></th>
                                             <th><b>Fecha Nac</b></th>
                                             <th><b>Usuario</b></th>
                                         </tr>
@@ -240,16 +242,17 @@ try {
                                         <?php while ($empleados = $emp_result->fetch_assoc()) {  ?>
                                             <tr>
                                                 <td align="center">
-                                                    <a href="editar_usuario.php?id=<?php echo $usuarios['emp_id']; ?>" class="btn btn-success btn-circle btn-sm">
+                                                    <a href="" data-toggle="modal" data-target="#modalEdicionEmp" onclick="edit_emp(<?php echo $empleados['emp_id']; ?>)" class="btn btn-success btn-circle btn-sm">
                                                         <i class="fas fa-pencil-alt"></i>
                                                     </a>
-                                                    <a href="includes/functions/CRUD_usuario.php?delete_user=<?php echo $usuarios['emp_id']; ?>" class="btn btn-danger btn-circle btn-sm">
+                                                    <a href="includes/functions/CRUD_empleado.php?delete_emp=<?php echo $empleados['emp_id']; ?>" class="btn btn-danger btn-circle btn-sm">
                                                         <i class="fas fa-trash-alt"></i>
                                                     </a>
                                                 </td>
-                                                <td><?php echo $empleados["nombre"] ?></td>
-                                                <td><?php echo $empleados["fecha"] ?></td>
-                                                <td><?php echo $empleados["usuario"] ?></td>
+                                                <?php echo "<td id='emp_name{$empleados['emp_id']}'>" . $empleados["nombre"] . "</td>" ?>
+                                                <?php echo "<td id='emp_lname{$empleados['emp_id']}'>" . $empleados["apellido"] . "</td>" ?>
+                                                <?php echo "<td id='emp_fecha{$empleados['emp_id']}'>" . $empleados["fecha"] . "</td>" ?>
+                                                <?php echo "<td id='emp_usr{$empleados['emp_id']}'>" . $empleados["usuario"] . "</td>" ?>
                                             </tr>
                                         <?php
                                     }  ?>
@@ -416,9 +419,54 @@ try {
 <!-- / Accordion -->
 
 
-<?php
-require('includes/templates/master_footer.php');
-?>
+<!-- modal empleado -->
+<div class="modal fade" id="modalEdicionEmp" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Actualizar datos</h4>
+            </div>
+            <div class="modal-body">
+                <form action="./includes/functions/CRUD_empleado.php" method="POST">
+                    <input type="hidden" value="" name="current_emp" id="current_emp">
+                    <div class="form-group">
+                        <label>Nombres de empleado</label>
+                        <input name="emp_name" id="modal_emp_name" type="text" class="form-control" placeholder="Nombres">
+                    </div>
+                    <div class="form-group">
+                        <label>Apellidos de empleado</label>
+                        <input name="emp_lname" id="modal_emp_lname" type="text" class="form-control" placeholder="Apellidos">
+                    </div>
+                    <div class="form-group">
+                        <label>Fecha de nacimiento empleado</label>
+                        <input name="emp_bdate" id="modal_emp_fecha" type="date" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label>Usuario empleado</label>
+                        <select class="form-control" id="modal_emp_usr" name="emp_usrid">
+                            <?php
+                            $sql = "SELECT usr_id,usr_nombre FROM usuario WHERE usr_estado = 1";
+                            $resultUsr_Emp = $conn->query($sql);
+                            while ($valores2 = mysqli_fetch_array($resultUsr_Emp)) {
+
+                                echo '<option value="' . $valores2['usr_id'] . '">' . $valores2['usr_nombre'] . '</option>';
+                            }
+                            ?>
+                        </select>
+                    </div>
+
+                    <div class="col-lg-6 offset-md-3 mr-auto ml-auto">
+                        <button type="submit" name="edit_emp" class="btn btn-info btn-block">Editar empleado
+                        </button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- fin modal empleado -->
 
 <!-- modal categorias -->
 <div class="modal fade" id="modalEdicionC" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -466,6 +514,9 @@ require('includes/templates/master_footer.php');
 </div>
 <!-- fin modal presentaciones -->
 
+<?php
+require('includes/templates/master_footer.php');
+?>
 
 
 <script src="js/funciones.js"></script>

@@ -1,3 +1,11 @@
+function edit_emp(_id) {
+	$("#current_emp").val(_id);
+	$('#modal_emp_name').val($('#emp_name' + _id).text());
+	$('#modal_emp_lname').val($('#emp_lname' + _id).text());
+	$('#modal_emp_fecha').val($('#emp_fecha' + _id).text());
+	$('#modal_emp_usr').val(_id).prop('selected', true);
+}
+
 function agregaformP(nombre, id) {
 
 	$('#nombreP').val(nombre);

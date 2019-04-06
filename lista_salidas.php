@@ -43,7 +43,7 @@ try {
                 <?php while ($venta = $ventas->fetch_assoc()) {  ?>
                     <tr>
                         <td>
-                            <a href="#" class="btn btn-success btn-circle btn-sm">
+                            <a data="<?php echo $venta["venta_id"] ?>"  id="btndetalle" class="btn btn-success btn-circle btn-sm detalle">
                                 <i class="fas fa-eye" data-toggle="modal" data-target="#modalDetalle"></i>
                             </a>
                         </td>
@@ -70,7 +70,7 @@ try {
                 </button>
             </div>
             <div class="modal-body">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <table class="table table-bordered" id="dataTableM" width="100%" cellspacing="0">
                     <thead>
                         <tr>
                             <th>Medicamento</th>
@@ -79,47 +79,15 @@ try {
                             <th>Subtotal</th>
                         </tr>
                     </thead>
-                    <tfoot>
-                        <tr>
-                            <td>Nombre medicamento</td>
-                            <td>$1.99</td>
-                            <td>1</td>
-                            <td>$1.99</td>
-                        </tr>
-                    </tfoot>
-                    <tbody>
-                        <tr>
-                            <td>Nombre medicamento</td>
-                            <td>$1.99</td>
-                            <td>1</td>
-                            <td>$1.99</td>
-                        <tr>
-                            <td>Nombre medicamento</td>
-                            <td>$1.99</td>
-                            <td>1</td>
-                            <td>$1.99</td>
-                        </tr>
-                        <tr>
-                            <td>Nombre medicamento</td>
-                            <td>$1.99</td>
-                            <td>1</td>
-                            <td>$1.99</td>
-                        </tr>
-                        <tr>
-                            <td>Nombre medicamento</td>
-                            <td>$1.99</td>
-                            <td>1</td>
-                            <td>$1.99</td>
-                        </tr>
-                    </tbody>
+
                 </table>
                 <div class="">
                     <div class="card border-left-success shadow h-100 py-2">
                         <div class="card-body">
                             <div class="row no-gutters align-items-center">
                                 <div class="col mr-2">
-                                    <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Total salida 01/01/2019</div>
-                                    <div class="h5 mb-0 font-weight-bold text-gray-800">$215,000</div>
+                                    <div class="text-xs font-weight-bold text-success text-uppercase mb-1" id="fechaV">Total salida 01/01/2019</div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800" id="totalVenta">$215,000</div>
                                 </div>
                                 <div class="col-auto">
                                     <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
@@ -146,6 +114,38 @@ require('includes/templates/master_footer.php');
 
 <!-- Page level custom scripts -->
 <script src="js/demo/datatables-demo.js"></script>
+
+<script >
+$(document).on('click', '.detalle', function(){
+    var id2= $(this).attr("data");
+
+    $.ajax({
+            url:"includes/functions/ver_detalleV.php",
+            method:"POST",
+            data:{id:id2},
+            dataType:"json",
+            success:function(data){            	
+                $('#dataTableM').DataTable().clear();
+                var t = $("#dataTableM").DataTable();
+                for (var i in data) { 
+                    
+                t.row.add( [
+                        data[i]["med_nombre"],
+                        data[i]["med_precioV"],
+                        data[i]["det_venta_cantidad"],
+                        data[i]["det_venta_subtotal"]
+                    ]).draw( false );
+                
+                    $("#totalVenta").html("$"+data[0]["total"]);
+                    $("#fechaV").html("Total salida "+data[0]["venta_fecha"]);
+            }
+        }
+        });
+       
+});
+</script>
+
+
 </body>
 
 </html> 
