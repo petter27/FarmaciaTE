@@ -70,6 +70,60 @@ if (isset($_GET['delete_user'])) {
 }
 
 
+//Actualizar usuario
+if (isset($_POST['editar_usuario'])) {
+  $id = $_POST["usr_id"];
+  $nombre=$_POST["usr_name"];
+  $email=$_POST["usr_email"];
+  $tipo=$_POST["usr_tipo"];
+  $password=false;
+  $verificar_pass=false;
+
+  if(isset($_POST['usr_pass']) && isset($_POST['usr_pass2']) ){
+    $pass=$_POST['usr_pass'];
+    $pass2=$_POST['usr_pass2'];
+    if(strlen($pass)>0){
+      $password=true;
+    if($pass==$pass2 && strlen($pass)>4){
+      $verificar_pass=true;
+    
+    }
+  }
+  }
+
+  if(strlen($nombre)>4 && $password==false){
+  try {
+    require_once("bd_conexion.php");
+    $sql = "UPDATE usuario set usr_nombre='{$nombre}',usr_email='{$email}', usr_tipo={$tipo} WHERE usr_id ={$id}";
+    $resultado = $conn->query($sql);
+  } catch (Exception $e) {
+    $error = $e . getMessage();
+  }
+
+  Header("Location:../../configuracion.php");
+}elseif(strlen($nombre)>4 && $password==true && $verificar_pass==true){
+  $opciones = array(
+    'cost' => 12
+  );
+  $hashed_password = password_hash($pass, PASSWORD_BCRYPT, $opciones);
+
+  try {
+    require_once("bd_conexion.php");
+    $sql = "UPDATE usuario set usr_nombre='{$nombre}',usr_email='{$email}', usr_password='{$hashed_password}', usr_tipo={$tipo} WHERE usr_id ={$id}";
+    $resultado = $conn->query($sql);
+  } catch (Exception $e) {
+    $error = $e . getMessage();
+  }
+  Header("Location:../../configuracion.php");
+
+}else{
+  $mensaje="ocurrio un error, no se guardaron los cambios";
+  Header("Location:../../editar_usuario.php?id=$id&msj=$mensaje");
+}
+}
+
+//fin Actualizar usuario
+
 function validarIMG()
 {
   global $user_img, $targetPath, $mensaje, $user_img_name;

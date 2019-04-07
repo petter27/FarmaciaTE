@@ -28,40 +28,37 @@ try {
 
                 <div class="login-form col-sm-6 " >
                     <form action="./includes/functions/CRUD_usuario.php" method="POST" enctype="multipart/form-data">
+                    <div class="form-group">
+                            <input name="usr_id" type="text" class="form-control" hidden="true" placeholder="Usuario" value="<?php echo $usuario["usr_id"]; ?>" >
+                        </div>
                         <div class="form-group">
                             <label>Nombre de usuario</label>
-                            <input name="user_name" type="text" class="form-control" placeholder="Usuario" value="<?php echo $usuario["usr_nombre"]; ?>" >
+                            <input name="usr_name" type="text" class="form-control" placeholder="Usuario" value="<?php echo $usuario["usr_nombre"]; ?>" required >
                         </div>
                         <div class="form-group">
                             <label>Correo Electrónico</label>
-                            <input name="user_email" type="email" class="form-control" placeholder="Correo Electronico" value="<?php echo $usuario["usr_email"]; ?>">
+                            <input name="usr_email" type="email" class="form-control" placeholder="Correo Electronico" value="<?php echo $usuario["usr_email"]; ?>" required>
                         </div>
                         <div class="form-group">
                             <label>Contrasena</label>
-                            <input name="user_pass" type="password" class="form-control" placeholder="Contrasena">
+                            <input name="usr_pass" type="password" class="form-control" placeholder="Contrasena(Opcional)">
                         </div>
                         <div class="form-group">
                             <label>Contrasena</label>
-                            <input name="user_pass2" type="password" class="form-control" placeholder="Repita la Contrasena">
+                            <input name="usr_pass2" type="password" class="form-control" placeholder="Repita la Contrasena(Opcional) ">
                         </div>
                         <div class="form-group">
                             <label for="categoria" class=" form-control-label">Tipo de usuario</label>
-                            <select name="user_idtipo" id="ddlTipo" class="form-control">
+                            <select name="usr_tipo" id="ddlTipo" class="form-control">
                                 <option value="1" <?php if( $usuario["usr_tipo"]==1){echo 'selected="true"';} ?> >Admin</option>
                                 <option value="2" <?php if( $usuario["usr_tipo"]==2){echo 'selected="true"';} ?>>Empleado</option>
                             </select>
                         </div>
-                        <div class="form-group row">
-                            <div class="col-md-6">
-                                <label class=" form-control-label">Una imagen .png, .jpg, jpeg no mayor a 10mb</label>
-                                <input id="subirImg" onchange="PreviewImage(this);" class="form-control" type="file" name="user_img">
-                            </div>
-                            <div class="col-md-6">
-                                <img id="imagen" width="100" src="" alt="">
-                            </div>
+                        <div class="mensaje">
+                        <?php if(isset($_GET["msj"])){ echo $_GET["msj"]; } ?>
                         </div>
                         <div class="col-lg-6 offset-md-3 mr-auto ml-auto">
-                            <button type="submit" name="agg_user" class="btn btn-info btn-block">Agregar usuario
+                            <button type="submit" name="editar_usuario" class="btn btn-info btn-block">Agregar usuario
                             </button>
                         </div>
                     </form>
@@ -70,7 +67,6 @@ try {
 
             </div>
 
-<h4> <?php var_dump($usuario); ?> </h4>
 
 
 
