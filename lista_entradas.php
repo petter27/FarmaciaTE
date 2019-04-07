@@ -118,7 +118,6 @@ require('includes/templates/master_footer.php');
 <script >
 $(document).on('click', '.detalle', function(){
     var id2= $(this).attr("data");
-    alert(id2);
     $.ajax({
             url:"includes/functions/ver_detalleC.php",
             method:"POST",
