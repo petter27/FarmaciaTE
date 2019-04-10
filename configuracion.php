@@ -72,7 +72,7 @@ try {
     <!-- Usuarios -->
     <div class="card">
         <div class="card-header <?php echo $user_card; ?>" id="headingOne" data-toggle="collapse" data-target="#collapseOne" aria-controls="collapseOne">
-            <h3>USUARIOS</h3>
+            <h3> <i class="fas fa-users"></i> USUARIOS</h3>
         </div>
 
         <div id="collapseOne" class="collapse <?php echo $user_card; ?>" aria-labelledby="headingOne" data-parent="#accordionExample">
@@ -176,9 +176,9 @@ try {
     <!-- Empleados -->
     <div class="card">
         <div class="card-header" id="headingEmp" data-toggle="collapse" data-target="#collapseEmp" <?php echo "aria-expanded='{$emp_card}'"; ?> aria-controls="collapseEmp">
-            <h3>EMPLEADOS</h3>
+            <h3> <i class="fas fa-user-tie"></i>
+                EMPLEADOS</h3>
         </div>
-
         <div id="collapseEmp" class="collapse <?php echo $emp_card; ?>" aria-labelledby="headingEmp" data-parent="#accordionExample">
             <div class="card-body">
                 <div class="row">
@@ -282,7 +282,8 @@ try {
     <!-- Categorías -->
     <div class="card">
         <div class="card-header" id="headingTwo" data-toggle="collapse" data-target="#collapseTwo" <?php echo "aria-expanded='{$cat_card}'"; ?> aria-controls="collapseTwo">
-            <h3>CATEGORIAS</h3>
+            <h3> <i class="fas fa-list-alt"></i>
+                CATEGORIAS</h3>
         </div>
         <div id="collapseTwo" class="collapse <?php echo $cat_card; ?>" aria-labelledby="headingTwo" data-parent="#accordionExample">
             <div class="card-body">
@@ -357,7 +358,8 @@ try {
     <!-- Presentaciones -->
     <div class="card">
         <div class="card-header" id="headingThree" data-toggle="collapse" data-target="#collapseThree" <?php echo "aria-expanded='{$pre_card}'"; ?> aria-controls="collapseThree">
-            <h3>PRESENTACIONES</h3>
+            <h3> <i class="fas fa-band-aid"></i>
+                PRESENTACIONES</h3>
         </div>
         <div id="collapseThree" class="collapse <?php echo $pre_card; ?>" aria-labelledby="headingThree" data-parent="#accordionExample">
             <div class="card-body">
