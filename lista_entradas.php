@@ -4,16 +4,15 @@ session_start();
 admin_autenticado();
 ?>
 
-<?php 
+<?php
 require('includes/templates/master_header.php');
 ?>
 
 <?php
 try {
     require_once("includes/functions/bd_conexion.php");
-    $sqlEntradas = "SELECT * FROM compra;";
+    $sqlEntradas = "SELECT * FROM compra ORDER BY compra_fecha DESC;";
     $compras = $conn->query($sqlEntradas);
-    
 } catch (Exception $e) {
     $error = $e . getMessage();
 }
@@ -36,21 +35,21 @@ try {
                         <th>Total</th>
                     </tr>
                 </thead>
-                
+
                 <tbody>
-                <?php while ($compra = $compras->fetch_assoc()) {  ?>
-                    <tr>
-                        <td>
-                            <a data="<?php echo $compra["compra_id"] ?>"  class="btn btn-success btn-circle btn-sm detalle">
-                                <i class="fas fa-eye" data-toggle="modal" data-target="#modalDetalle"></i>
-                            </a>
-                        </td>
-                        <td><?php echo $compra["compra_id"] ?></td>
-                        <td><?php echo $compra["compra_fecha"] ?></td>
-                        <td> <?php echo $compra["compra_total"] ?></td>
-                    </tr>
-                <?php }  ?>
-                     </tbody>  
+                    <?php while ($compra = $compras->fetch_assoc()) {  ?>
+                        <tr>
+                            <td>
+                                <a href="#" data="<?php echo $compra["compra_id"] ?>" class="btn btn-success btn-circle btn-sm detalle">
+                                    <i class="fas fa-eye" data-toggle="modal" data-target="#modalDetalle"></i>
+                                </a>
+                            </td>
+                            <td><?php echo $compra["compra_id"] ?></td>
+                            <td><?php echo $compra["compra_fecha"] ?></td>
+                            <td> <?php echo $compra["compra_total"] ?></td>
+                        </tr>
+                    <?php }  ?>
+                </tbody>
             </table>
         </div>
     </div>
@@ -76,9 +75,9 @@ try {
                             <th>Subtotal</th>
                         </tr>
                     </thead>
-                   
+
                     <tbody>
-                        
+
                     </tbody>
                 </table>
                 <div class="">
@@ -104,7 +103,7 @@ try {
     </div>
 </div>
 
-<?php 
+<?php
 require('includes/templates/master_footer.php');
 ?>
 
@@ -115,34 +114,36 @@ require('includes/templates/master_footer.php');
 <!-- Page level custom scripts -->
 <script src="js/demo/datatables-demo.js"></script>
 
-<script >
-$(document).on('click', '.detalle', function(){
-    var id2= $(this).attr("data");
-    $.ajax({
-            url:"includes/functions/ver_detalleC.php",
-            method:"POST",
-            data:{id:id2},
-            dataType:"json",
-            success:function(data){            	
+<script>
+    $(document).on('click', '.detalle', function() {
+        var id2 = $(this).attr("data");
+        $.ajax({
+            url: "includes/functions/ver_detalleC.php",
+            method: "POST",
+            data: {
+                id: id2
+            },
+            dataType: "json",
+            success: function(data) {
                 $('#dataTableC').DataTable().clear();
                 var t = $("#dataTableC").DataTable();
-                for (var i in data) { 
-                    
-                t.row.add( [
+                for (var i in data) {
+
+                    t.row.add([
                         data[i]["med_nombre"],
                         data[i]["med_precioC"],
                         data[i]["det_compra_cantidad"],
                         data[i]["det_compra_subtotal"]
-                    ]).draw( false );
-                
-                    $("#totalCompra").html("$"+data[0]["total"]);
-                    $("#fechaC").html("Total entrada "+data[0]["compra_fecha"]);
+                    ]).draw(false);
+
+                    $("#totalCompra").html("$" + data[0]["total"]);
+                    $("#fechaC").html("Total entrada " + data[0]["compra_fecha"]);
+                }
             }
-        }
         });
-       
-});
+
+    });
 </script>
 </body>
 
-</html> 
+</html>
