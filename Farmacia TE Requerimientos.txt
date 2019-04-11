@@ -1,0 +1,17 @@
+************************REGLAS DE NEGOCIO Y REQUERIMIENTOS******************************
+
+--FARMACIA TE
+
+1- Se solicita un modulo para controlar los usuarios que tienen acceso al sistema (Login).
+2- Se solicita que existan dos roles de usuario, uno que sea capaz de tener acceso
+a todo el sistema y otro rol con menos permisos (Empleado).
+3- Un empleado no puede Realizar compras, solamente los administradores.
+4- El usuario con mayor privilegios puede gestionar las cuentas de los demas usuarios.
+5- El usuario de empleado solo tiene acceso al inventario y a realizar una venta.
+6- Es necesario poder tener acceso al historial de compras y ventas realizadas en el sistema.
+7- No es necesario registrar informacion de los clientes en el sistema. 
+8- El sistema debe poseer opciones para modificar datos del sistema como las categorias, informacion de los medicamentos.
+9- Se debe de tener un registro de la persona que realiza cada compra y cada venta en el sistema.
+10-Debe guardarse una imagen de cada medicamento que es agregado al sistema.
+11- Todo usuario registrado en el sistema debe de agregarsele una foto.
+12- Los reportes del sistema deben ser graficos que permitan visualizar las estadisticas del sistema de una manera más facil.	
