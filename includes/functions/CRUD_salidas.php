@@ -2,7 +2,10 @@
 require('funciones.php');
 require_once("bd_conexion.php");
 session_start();
-admin_autenticado();
+if (isset($_SESSION['usr_admin'])) {
+  admin_autenticado();
+} else emp_autenticado();
+
 
 if (isset($_POST['getmeds'])) {
   $idcat = $_POST['idcat'];

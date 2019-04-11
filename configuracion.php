@@ -206,7 +206,7 @@ try {
                                         <div class="form-group">
                                             <label>Usuario empleado</label>
                                             <select class="form-control" name="emp_usrid">
-                                                <option>Usuario</option>
+                                                <option selected disabled>Usuario</option>
 
                                                 <?php
                                                 require_once("includes/functions/bd_conexion.php");
