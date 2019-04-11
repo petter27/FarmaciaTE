@@ -1,5 +1,7 @@
 <?php 
 
+$mensaje = "";
+
 if(isset($_POST['EditMedicamento'])){
 	$id=$_POST['med_id'];
     $nom=$_POST['med_nombre'];
@@ -11,7 +13,6 @@ if(isset($_POST['EditMedicamento'])){
     $fecha=$_POST['med_fechaV'];
     $mensaje = '';
 
-    echo "puta";
     try{
         require_once("bd_conexion.php");
         $sql="UPDATE medicamentos SET med_nombre='{$nom}', med_stock='{$sto}', cat_id='{$categoria}', pre_id='{$presentacion}', 
@@ -21,7 +22,7 @@ if(isset($_POST['EditMedicamento'])){
         if ($resultado->error) {
             $mensaje = "BD ERROR: " . $resultado->error;
           } else {
-            $mensaje = "Medicamento registrado correctamente";
+            $mensaje = "Medicamento actualizado correctamente";
           }
 
         //header('Location:../../inventario.php?exito=exito');
@@ -31,7 +32,6 @@ if(isset($_POST['EditMedicamento'])){
     }
 
     header("Location:../../inventario.php?msg={$mensaje}");
-}
-
+ }
 
  ?>

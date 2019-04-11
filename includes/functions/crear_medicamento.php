@@ -20,7 +20,14 @@ if (isset($_POST["btnAgregarMed"])) {
 
     $targetPath = "../../img/products/" . $url_img;
 
-    if ($nombre == "" || $precio_compra == "" || $precio_venta == "" || validarIMG() == false) {
+    if($_POST['comboC'] == 'Categoría' ){
+
+        $mensaje .= "Seleccione una categoria";
+        }else{
+        //Correcto
+         
+
+    if ($nombre == "" || $precio_compra == "" || $precio_venta == "" || $stock == "" || validarIMG() == false ) {
         $mensaje .= " - Ingrese los campos requeridos";
     } else {
 
@@ -48,6 +55,7 @@ if (isset($_POST["btnAgregarMed"])) {
             $mensaje .= "Error: " . $e->getMessage();
         }
     }
+}
 }
 
 
