@@ -138,7 +138,7 @@ try {
                                 <strong class="card-title">Lista de Usuarios</strong>
                             </div>
                             <div class="card-body">
-                                <table class="table table-striped table-bordered ">
+                                <table class="table table-striped table-bordered table-responsive">
                                     <thead class="thead-dark">
                                         <tr>
                                             <th><b>Editar</b></th>
@@ -206,12 +206,15 @@ try {
                                         <div class="form-group">
                                             <label>Usuario empleado</label>
                                             <select class="form-control" name="emp_usrid">
-                                                <option>Usuario</option>
+                                                <option selected disabled>Usuario</option>
 
                                                 <?php
                                                 require_once("includes/functions/bd_conexion.php");
 
-                                                $sql = "SELECT usr_id,usr_nombre FROM usuario WHERE usr_estado = 1";
+                                                $sql = "SELECT  u.usr_id,u.usr_nombre 
+                                                        FROM   usuario u 
+                                                        WHERE  u.usr_id NOT IN (SELECT e.usr_id FROM empleado e) 
+                                                        AND u.usr_estado = 1;";
                                                 $resultUsr_Emp = $conn->query($sql);
                                                 $resultUsr_Emp_modal = $resultUsr_Emp;
 

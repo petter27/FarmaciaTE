@@ -2,7 +2,10 @@
 require('funciones.php');
 require_once("bd_conexion.php");
 session_start();
-admin_autenticado();
+if (isset($_SESSION['usr_admin'])) {
+  admin_autenticado();
+} else emp_autenticado();
+
 
 if (isset($_POST['getmeds'])) {
   $idcat = $_POST['idcat'];
@@ -52,7 +55,11 @@ if (isset($_POST['agg_salida'])) {
 function agg_salida($total)
 {
   global $conn;
-  $query = "INSERT INTO venta(venta_fecha, venta_total) VALUES(current_timestamp(), {$total});";
+  if (isset($_SESSION['usr_admin'])) {
+    $id_emp = $_SESSION['usr_admin']['id'];
+  } else $id_emp = $_SESSION['usr_emp']['id'];
+
+  $query = "INSERT INTO venta(emp_id,venta_fecha, venta_total) VALUES({$id_emp},current_timestamp(), {$total});";
   if (!$conn->query($query)) {
     return $conn->error;
   }

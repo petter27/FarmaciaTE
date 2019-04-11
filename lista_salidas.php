@@ -4,18 +4,17 @@ session_start();
 admin_autenticado();
 ?>
 
-<?php 
+<?php
 require('includes/templates/master_header.php');
 ?>
 
 <?php
 try {
     require_once("includes/functions/bd_conexion.php");
-    $sql= "SELECT venta_id,venta_fecha,venta_total,cliente_nombre,emp_nombre FROM venta
-    JOIN cliente ON cliente.cliente_id=venta.cliente_id
-    JOIN empleado ON empleado.emp_id=venta.emp_id;";
+    $sql = "SELECT venta_id,venta_fecha,venta_total,emp_nombre FROM venta
+    JOIN empleado ON empleado.emp_id=venta.emp_id
+    ORDER BY venta_fecha DESC;";
     $ventas = $conn->query($sql);
-    
 } catch (Exception $e) {
     $error = $e . getMessage();
 }
@@ -34,25 +33,23 @@ try {
                     <tr>
                         <th>Ver</th>
                         <th>Fecha</th>
-                        <th>Cliente</th>
                         <th>Empleado</th>
                         <th>Total</th>
                     </tr>
                 </thead>
                 <tbody>
-                <?php while ($venta = $ventas->fetch_assoc()) {  ?>
-                    <tr>
-                        <td>
-                            <a data="<?php echo $venta["venta_id"] ?>"  id="btndetalle" class="btn btn-success btn-circle btn-sm detalle">
-                                <i class="fas fa-eye" data-toggle="modal" data-target="#modalDetalle"></i>
-                            </a>
-                        </td>
-                        <td><?php echo $venta["venta_fecha"] ?></td>
-                        <td><?php echo $venta["cliente_nombre"] ?></td>
-                        <td><?php echo $venta["emp_nombre"] ?></td>
-                        <td><?php echo $venta["venta_total"] ?></td>
-                    </tr>   
-                <?php } ?>   
+                    <?php while ($venta = $ventas->fetch_assoc()) {  ?>
+                        <tr>
+                            <td>
+                                <a href="#" data="<?php echo $venta["venta_id"] ?>" id="btndetalle" class="btn btn-success btn-circle btn-sm detalle">
+                                    <i class="fas fa-eye" data-toggle="modal" data-target="#modalDetalle"></i>
+                                </a>
+                            </td>
+                            <td><?php echo $venta["venta_fecha"] ?></td>
+                            <td><?php echo $venta["emp_nombre"] ?></td>
+                            <td><?php echo $venta["venta_total"] ?></td>
+                        </tr>
+                    <?php } ?>
                 </tbody>
             </table>
         </div>
@@ -104,7 +101,7 @@ try {
     </div>
 </div>
 
-<?php 
+<?php
 require('includes/templates/master_footer.php');
 ?>
 
@@ -115,37 +112,39 @@ require('includes/templates/master_footer.php');
 <!-- Page level custom scripts -->
 <script src="js/demo/datatables-demo.js"></script>
 
-<script >
-$(document).on('click', '.detalle', function(){
-    var id2= $(this).attr("data");
+<script>
+    $(document).on('click', '.detalle', function() {
+        var id2 = $(this).attr("data");
 
-    $.ajax({
-            url:"includes/functions/ver_detalleV.php",
-            method:"POST",
-            data:{id:id2},
-            dataType:"json",
-            success:function(data){            	
+        $.ajax({
+            url: "includes/functions/ver_detalleV.php",
+            method: "POST",
+            data: {
+                id: id2
+            },
+            dataType: "json",
+            success: function(data) {
                 $('#dataTableM').DataTable().clear();
                 var t = $("#dataTableM").DataTable();
-                for (var i in data) { 
-                    
-                t.row.add( [
+                for (var i in data) {
+
+                    t.row.add([
                         data[i]["med_nombre"],
                         data[i]["med_precioV"],
                         data[i]["det_venta_cantidad"],
                         data[i]["det_venta_subtotal"]
-                    ]).draw( false );
-                
-                    $("#totalVenta").html("$"+data[0]["total"]);
-                    $("#fechaV").html("Total salida "+data[0]["venta_fecha"]);
+                    ]).draw(false);
+
+                    $("#totalVenta").html("$" + data[0]["total"]);
+                    $("#fechaV").html("Total salida " + data[0]["venta_fecha"]);
+                }
             }
-        }
         });
-       
-});
+
+    });
 </script>
 
 
 </body>
 
-</html> 
+</html>
