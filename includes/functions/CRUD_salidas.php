@@ -59,7 +59,10 @@ function agg_salida($total)
     $id_emp = $_SESSION['usr_admin']['id'];
   } else $id_emp = $_SESSION['usr_emp']['id'];
 
-  $query = "INSERT INTO venta(emp_id,venta_fecha, venta_total) VALUES({$id_emp},current_timestamp(), {$total});";
+
+
+  $query = "INSERT INTO venta(emp_id,venta_fecha, venta_total) VALUES((SELECT emp_id from empleado where usr_id = {$id_emp}),current_timestamp(), {$total});";
+  #echo $query;
   if (!$conn->query($query)) {
     return $conn->error;
   }

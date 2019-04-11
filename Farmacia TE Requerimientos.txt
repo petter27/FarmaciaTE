@@ -14,4 +14,4 @@ a todo el sistema y otro rol con menos permisos (Empleado).
 9- Se debe de tener un registro de la persona que realiza cada compra y cada venta en el sistema.
 10-Debe guardarse una imagen de cada medicamento que es agregado al sistema.
 11- Todo usuario registrado en el sistema debe de agregarsele una foto.
-12- Los reportes del sistema deben ser graficos que permitan visualizar las estadisticas del sistema de una manera más facil.	
+12- El sistema debe mostrar informaciÃ³n en graficos que permitan visualizar las estadisticas del sistema de una manera mï¿½s facil.

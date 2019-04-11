@@ -1,4 +1,4 @@
-<?php 
+<?php
 session_start();
 require_once('includes/functions/funciones.php');
 emp_autenticado();
@@ -130,10 +130,6 @@ emp_autenticado();
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="./configuracion.php">
-                                    <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Configuración
-                                </a>
                                 <div class="dropdown-divider"></div>
 
                                 <a class="dropdown-item" href="" data-toggle="modal" data-target="#logoutModal">
@@ -147,4 +143,4 @@ emp_autenticado();
                     </ul>
 
                 </nav>
-                <!-- End of Topbar --> 
+                <!-- End of Topbar -->
